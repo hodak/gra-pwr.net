@@ -1,4 +1,4 @@
-App = angular.module 'App', ['ui.router']
+App = angular.module 'infinish', ['ui.router']
 
 App.config ($locationProvider) ->
   $locationProvider.html5Mode true

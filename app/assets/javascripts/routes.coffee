@@ -1,4 +1,4 @@
-angular.module('DigApp').config ($stateProvider, $urlRouterProvider) ->
+angular.module('infinish').config ($stateProvider, $urlRouterProvider) ->
   $urlRouterProvider.otherwise '/'
 
   $stateProvider
