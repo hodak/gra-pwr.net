@@ -1,8 +1,8 @@
 module Api
-  class TestsController < ApiController
+  class ExamsController < ApiController
     def index
       require'pry';binding.pry
-      render json: Test.all
+      render json: Exam.all
     end
   end
 end

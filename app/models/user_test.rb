@@ -1,4 +1,4 @@
-class UserTest < ActiveRecord::Base
+class UserExam < ActiveRecord::Base
   belongs_to :user
-  belongs_to :test
+  belongs_to :exam
 end

@@ -2,7 +2,7 @@ hodak   = User.create! email: 'hodak@hodak.pl'
 rafal   = User.create! email: 'rafal@rafal.pl'
 piotrek = User.create! email: 'piotrek@piotrek.pl'
 
-web = Test.create! name: 'Webówka'
+web = Exam.create! name: 'Webówka'
 web.questions.create!(text: 'W modelu DOM elementy dokumentu zorganizowane są jako:').tap do |q|
   q.answers.create! text: 'Graf'
   q.answers.create! text: 'Drzewo', correct: true

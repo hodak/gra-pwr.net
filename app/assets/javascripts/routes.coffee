@@ -5,7 +5,3 @@ angular.module('infinish').config ($stateProvider, $urlRouterProvider) ->
     .state 'index',
       url: '/',
       templateUrl: '/assets/index.html'
-      resolve:
-        tests: (Test) ->
-          Test.index()
-

@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :question do
-    test_id 1
+    exam_id 1
     text "MyText"
   end
 end

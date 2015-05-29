@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :user_answer do
-    user_test_id 1
+    user_exam_id 1
     answer_id 1
   end
 end
