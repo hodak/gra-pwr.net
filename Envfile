@@ -1,0 +1,8 @@
+enable_defaults! { ENV['RACK_ENV'] != 'production' }
+
+variable :HOST, :string, default: 'localhost:3000'
+
+# group :production do
+#   variable :SECRET_KEY_BASE
+# end
+
