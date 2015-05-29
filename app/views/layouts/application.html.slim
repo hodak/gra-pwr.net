@@ -7,7 +7,7 @@ html ng-app="infinish"
     /* Beware, CSRF is disabled */
     /* = csrf_meta_tags */
   body
-    div ui-view=""
+    = yield
 
     = javascript_include_tag 'application'
     = js_env
