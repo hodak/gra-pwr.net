@@ -21,5 +21,6 @@ group :development, :test do
   gem 'factory_girl_rails', '~> 4.4.1'
   gem 'rspec-rails', '~> 3.0.2'
   gem 'pry', '~> 0.10.1'
+  gem 'rspec-query-limit', '~> 0.1.2'
 end
 
