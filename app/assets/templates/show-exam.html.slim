@@ -1,4 +1,38 @@
 | SHOW EXAM
 
-| {{ userExam }}
-| {{ exam }}
+| {{ current.question }}
+
+br
+
+| {{ current.answers }}
+
+div
+  h3 ng-bind="current.question.text"
+
+  ul
+    li(
+      ng-repeat="answer in current.question.answers"
+      ng-class="answerClass(answer)"
+    )
+      label
+        input(
+          type="checkbox"
+          checklist-model="current.answers"
+          checklist-value="answer.id"
+          ng-disabled="current.check"
+        )
+        | {{ answer.text }}
+
+  / TODO: disable this button after checking answers or when no answer is checked
+  button(
+    type="button"
+    ng-click="checkAnswers()"
+    ng-disabled="shouldDisableCheckAnswersButton()"
+  ) Sprawdź
+
+  / TODO: disable this button before checking answer
+  button(
+    type="button"
+    ng-click="nextQuestion()"
+    ng-disabled="shouldDisableNextQuestionButton()"
+  ) Następne pytanie
