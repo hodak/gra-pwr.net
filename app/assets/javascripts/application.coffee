@@ -1,5 +1,6 @@
 #= require angularjs
 #= require ui-router
+#= require checklist-model
 
 #= require init
 #= require_directory

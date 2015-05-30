@@ -1,4 +1,4 @@
-App = angular.module 'infish', ['ui.router']
+App = angular.module 'infish', ['ui.router', 'checklist-model']
 
 App.config ($locationProvider) ->
   $locationProvider.html5Mode true
