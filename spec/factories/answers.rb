@@ -4,6 +4,6 @@ FactoryGirl.define do
   factory :answer do
     question { FactoryGirl.create(:question) }
     text "MyText"
-    correct false
+    correct { [true, false].sample }
   end
 end
