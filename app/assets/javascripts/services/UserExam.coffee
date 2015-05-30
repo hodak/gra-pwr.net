@@ -1,4 +1,4 @@
-angular.module('infinish').service 'UserExam', ($http) ->
+angular.module('infish').service 'UserExam', ($http) ->
   base = '/api/user_exams/'
 
   index: ->

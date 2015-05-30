@@ -1,2 +1,15 @@
-| INDEX PAGE
+h1 User Exams
 
+table
+  tr
+    th ID
+    th Name
+    th Repeat
+    th Repeat Wrong
+  tr ng-repeat="userExam in userExams"
+    td ng-bind="userExam.exam.id"
+    td ng-bind="userExam.exam.name"
+    td ng-bind="userExam.repeat"
+    td ng-bind="userExam.repeat_wrong"
+
+  / TODO: current status of taking the exam

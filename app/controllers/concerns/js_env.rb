@@ -14,7 +14,7 @@ module JsEnv
 
     <<-EOS.html_safe
       <script type="text/javascript">
-        shared = angular.module('infinish')
+        shared = angular.module('infish')
         shared.constant('Rails', #{data.to_json})
       </script>
     EOS
