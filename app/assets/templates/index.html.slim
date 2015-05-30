@@ -7,7 +7,8 @@ table
     th Repeat
     th Repeat Wrong
   tr ng-repeat="userExam in userExams"
-    td ng-bind="userExam.exam.id"
+    td
+      a ui-sref="exams.show({ id: userExam.exam.id })" ng-bind="userExam.exam.id"
     td ng-bind="userExam.exam.name"
     td ng-bind="userExam.repeat"
     td ng-bind="userExam.repeat_wrong"

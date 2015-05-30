@@ -7,10 +7,18 @@ angular.module('infish').config ($stateProvider, $urlRouterProvider) ->
       template: """<ui-view></ui-view>"""
       resolve:
         userExams: (UserExam) ->
-          # TODO: what if there's an error? e.g. 401?
-          UserExam.index().then (response) ->
-            response.data
+          UserExam.index()
     .state 'exams.index',
       url: '/',
       templateUrl: '/assets/index.html'
       controller: 'IndexCtrl'
+    .state 'exams.show',
+      url: '/exam/:id'
+      templateUrl: '/assets/show-exam.html'
+      controller: 'ExamCtrl'
+      resolve:
+        # by injecting userExams we ensure it gets resolved
+        # before going into this resolve function, very handy
+        # http://www.jvandemo.com/how-to-resolve-application-wide-resources-centrally-in-angularjs-with-ui-router/
+        userExam: ($stateParams, userExams, UserExam) ->
+          UserExam.show($stateParams.id)
