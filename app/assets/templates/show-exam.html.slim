@@ -1,13 +1,16 @@
 | SHOW EXAM
 
-| {{ current.question }}
+| {{ newUserAnswers }}
 
-br
-
-| {{ current.answers }}
+h5 Repeat: {{ userExam.repeat }}
+h5 Repeat wrong: {{ userExam.repeat_wrong }}
+h5 Pozostało pytań do opanowania: {{ exam.questions.length }}
+h5 Opanowanych pytań: {{ exam.masteredQuestions.length }}
 
 div
   h3 ng-bind="current.question.text"
+
+  span Powtórzeń tego pytania: {{ current.question.repeat }}
 
   ul
     li(
