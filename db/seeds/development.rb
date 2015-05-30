@@ -21,3 +21,5 @@ web.questions.create!(text: '_____ to szeroko wspierana, otwarta technologia wym
   q.answers.create! text: 'XML, W3C', correct: true
   q.answers.create! text: 'XML, The Mozilla Foundation'
 end
+
+hodak.user_exams.create! exam: web
