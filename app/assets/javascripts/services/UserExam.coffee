@@ -1,5 +1,5 @@
 angular.module('infish').service 'UserExam', ($http, $q) ->
-  base = '/api/user_exams/'
+  base = '/api/user_exams'
 
   cachedUserExams = undefined
 
@@ -17,3 +17,7 @@ angular.module('infish').service 'UserExam', ($http, $q) ->
 
   show: (id) ->
     (e for e in cachedUserExams when e?.exam?.id == id)[0]
+
+  syncUserAnswers: (userExam, userAnswers) ->
+    $http.put "#{base}/#{userExam.id}/sync_user_answers",
+      user_answers: userAnswers

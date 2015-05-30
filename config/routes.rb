@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   namespace :api do
-    resources :user_exams, only: [:index]
+    resources :user_exams, only: [:index] do
+      member do
+        put :sync_user_answers
+      end
+    end
   end
 
   get 'api' => proc { [404, {}, ['Invalid API endpoint']] }

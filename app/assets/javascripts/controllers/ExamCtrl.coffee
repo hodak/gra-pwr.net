@@ -1,4 +1,4 @@
-angular.module('infish').controller 'ExamCtrl', ($scope, $stateParams, userExam) ->
+angular.module('infish').controller 'ExamCtrl', ($scope, $stateParams, userExam, UserExam) ->
   $scope.userExam = userExam
   $scope.exam = userExam.exam
 
@@ -86,5 +86,18 @@ angular.module('infish').controller 'ExamCtrl', ($scope, $stateParams, userExam)
   drawNextQuestion = ->
     $scope.current.question = $scope.exam.questions[Math.floor(Math.random() * $scope.exam.questions.length)]
 
+  # SYNC
+  $scope.syncUserAnswers = ->
+    answers = angular.copy($scope.newUserAnswers)
+    $scope.newUserAnswers = []
+    UserExam.syncUserAnswers($scope.userExam, answers)
+      .success (response) ->
+        console.log 'success'
+        console.log response
+      .error (e) ->
+        console.log 'error'
+        # TODO: add to new user answers again!!!! fuck i could use some karma
+
+  # INIT
   init()
 

@@ -39,3 +39,9 @@ div
     ng-click="nextQuestion()"
     ng-disabled="shouldDisableNextQuestionButton()"
   ) Następne pytanie
+
+  button(
+    type="button"
+    ng-click="syncUserAnswers()"
+    ng-disabled="newUserAnswers.length == 0"
+  ) Sync!
