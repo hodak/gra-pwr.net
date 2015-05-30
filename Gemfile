@@ -15,6 +15,7 @@ gem 'jquery-rails', '~> 3.1.2'
 source 'https://rails-assets.org' do
   gem 'rails-assets-angularjs', '~> 1.3.2'
   gem 'rails-assets-ui-router', '~> 0.2.9'
+  gem 'rails-assets-uuid-js', '~> 0.7.5'
 end
 
 group :development, :test do
