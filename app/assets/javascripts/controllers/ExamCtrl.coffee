@@ -108,10 +108,8 @@ angular.module('infish').controller 'ExamCtrl', ($scope, $stateParams, userExam,
     UserExam.syncUserAnswers($scope.userExam, answers)
       .success (response) ->
         console.log 'success'
-        console.log response
       .error (e) ->
-        console.log 'error'
-        # TODO: add to new user answers again!!!! fuck i could use some karma
+        $scope.newUserAnswers = $scope.newUserAnswers.concat answers
 
   # INIT
   init()

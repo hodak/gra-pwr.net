@@ -12,6 +12,7 @@ module Api
 
     # TODO global api handling of 404 active record not found
     # TODO this method is untested :O
+    # TODO don't raise error if you try to add one uid twice, just ignore it
     def sync_user_answers
       user_exam = current_user.user_exams.find(params[:id])
       user_exam.user_answers.create! user_answers_params
