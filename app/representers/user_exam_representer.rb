@@ -8,7 +8,7 @@ class UserExamRepresenter < Struct.new(:user_exam)
       exam: {
         id: exam.id,
         name: exam.name,
-        questions: exam.questions.map { |q| QuestionRepresenter.new(q).to_h }
+        questions: exam.questions.inject({}) { |h, q| h[q.id] = QuestionRepresenter.new(q).to_h; h }
       },
       user_answers: user_exam.user_answers.where(user_exam_id: user_exam.id).map do |ua|
         {

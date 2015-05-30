@@ -7,10 +7,20 @@ angular.module('infish').controller 'ExamCtrl', ($scope, $stateParams, userExam,
   $scope.exam.masteredQuestions = []
 
   init = ->
+    angular.forEach $scope.userExam.user_answers, (userAnswer) ->
+      question = $scope.exam.questions[userAnswer.question_id]
+      return unless question?
+      question.repeat = $scope.userExam.repeat unless question.repeat?
+
+      if wasQuestionAnsweredCorrectly(question, userAnswer.answers)
+        question.repeat -= 1
+      else
+        question.repeat += $scope.userExam.repeat_wrong
+
+      conditionallyMoveQuestionToMastered(question)
+
     angular.forEach $scope.exam.questions, (question) ->
-      # TODO:
-      # * how many times question is repeated -> should take user's answers from back-end into consideration
-      # * split questions into questions and answered questions
+      return if question.repeat?
       question.repeat = $scope.userExam.repeat
 
     drawNextQuestion()
@@ -51,6 +61,9 @@ angular.module('infish').controller 'ExamCtrl', ($scope, $stateParams, userExam,
     else if (!answer.correct && answerInAnswers) || (answer.correct && !answerInAnswers)
       'incorrect-answer'
 
+  $scope.questionsLeftCount = ->
+    Object.keys($scope.exam.questions).length
+
   buildUserAnswer = ->
     {
       id: UUIDjs.create().toString()
@@ -58,8 +71,8 @@ angular.module('infish').controller 'ExamCtrl', ($scope, $stateParams, userExam,
       answers: angular.copy($scope.current.answers)
     }
 
-  wasAnswerInAnswers = (answer) ->
-    answer.id in $scope.current.answers
+  wasAnswerInAnswers = (answer, answers = $scope.current.answers) ->
+    answer.id in answers
 
   updateRepeatForQuestion = ->
     if wasQuestionAnsweredCorrectly()
@@ -67,24 +80,26 @@ angular.module('infish').controller 'ExamCtrl', ($scope, $stateParams, userExam,
     else
       $scope.current.question.repeat += $scope.userExam.repeat_wrong
 
-  conditionallyMoveQuestionToMastered = ->
-    current = $scope.current.question
-    if current.repeat == 0
-      $scope.exam.masteredQuestions.push current
-      $scope.exam.questions = $scope.exam.questions.filter (question) ->
-        question != current
+  conditionallyMoveQuestionToMastered = (question = $scope.current.question) ->
+    if question.repeat == 0
+      $scope.exam.masteredQuestions.push question
+      delete $scope.exam.questions[question.id]
 
-  wasQuestionAnsweredCorrectly = ->
+  wasQuestionAnsweredCorrectly = (question = $scope.current.question, answers = $scope.current.answers) ->
     correctly = true
-    angular.forEach $scope.current.question.answers, (answer) ->
+    angular.forEach question.answers, (answer) ->
       return unless correctly
-      answerInAnswers = wasAnswerInAnswers(answer)
+      answerInAnswers = wasAnswerInAnswers(answer, answers)
       correctly = false if (!answer.correct && answerInAnswers) || (answer.correct && !answerInAnswers)
 
     return correctly
 
   drawNextQuestion = ->
-    $scope.current.question = $scope.exam.questions[Math.floor(Math.random() * $scope.exam.questions.length)]
+    # TODO this probably should be called only once, not every draw
+    keys = Object.keys($scope.exam.questions)
+    randomlyPickedID = keys[Math.floor(Math.random() * keys.length)]
+    $scope.current.question = $scope.exam.questions[randomlyPickedID]
+    $scope.current.question.id = randomlyPickedID
 
   # SYNC
   $scope.syncUserAnswers = ->
