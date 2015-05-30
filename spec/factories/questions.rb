@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :question do
-    exam_id 1
+    exam { FactoryGirl.create(:exam) }
     text "MyText"
   end
 end

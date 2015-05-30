@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :answer do
-    question_id 1
+    question { FactoryGirl.create(:question) }
     text "MyText"
     correct false
   end

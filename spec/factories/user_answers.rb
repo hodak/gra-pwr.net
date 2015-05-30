@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :user_answer do
-    user_exam_id 1
-    answer_id 1
+    user_exam { FactoryGirl.create(:exam) }
+    answer { FactoryGirl.create(:answer) }
   end
 end
