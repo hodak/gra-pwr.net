@@ -38,4 +38,16 @@ describe UserExam do
       end
     end
   end
+
+  describe 'dependent destroy' do
+    let!(:user_exam) { FactoryGirl.create(:user_exam) }
+
+    it 'destroys user exam on destroying user' do
+      expect { user_exam.user.destroy! }.to change { UserExam.count }.by(-1)
+    end
+
+    it 'destroys user exam on destroying exam' do
+      expect { user_exam.exam.destroy! }.to change { UserExam.count }.by(-1)
+    end
+  end
 end

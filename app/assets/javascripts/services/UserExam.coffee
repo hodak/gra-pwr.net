@@ -1,22 +1,11 @@
 angular.module('infish').service 'UserExam', ($http, $q) ->
   base = '/api/user_exams'
 
-  cachedUserExams = undefined
-
   index: ->
-    deferred = $q.defer()
+    $http.get base
 
-    if cachedUserExams?
-      deferred.resolve cachedUserExams
-    else
-      $http.get(base).then (response) ->
-        cachedUserExams = response.data
-        deferred.resolve response.data
-
-    deferred.promise
-
-  show: (id) ->
-    (e for e in cachedUserExams when e?.exam?.id == id)[0]
+  show: (exam_id) ->
+    $http.get "#{base}/#{exam_id}"
 
   syncUserAnswers: (userExam, userAnswers) ->
     $http.put "#{base}/#{userExam.id}/sync_user_answers",

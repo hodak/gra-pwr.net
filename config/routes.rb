@@ -5,6 +5,8 @@ Rails.application.routes.draw do
         put :sync_user_answers
       end
     end
+
+    get 'user_exams/:exam_id', to: 'user_exams#show'
   end
 
   get 'api' => proc { [404, {}, ['Invalid API endpoint']] }

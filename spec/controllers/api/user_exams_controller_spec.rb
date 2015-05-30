@@ -13,20 +13,5 @@ describe Api::UserExamsController do
       exams_ids = parsed_body.map { |ue| ue['exam']['id'] }
       expect(exams_ids).to eql [first_for_user.exam.id, second_for_user.exam.id]
     end
-
-    it 'includes questions' do
-      get :index
-      expect(parsed_body[0]['exam']['questions']).not_to be_empty
-    end
-
-    it 'includes answers' do
-      get :index
-      expect(parsed_body[0]['exam']['questions'][0]['answers']).not_to be_empty
-    end
-
-    it 'takes only 1 database query' do
-      pending 'see model specs for user exam'
-      expect { get :index }.to query_limit_eq 1
-    end
   end
 end

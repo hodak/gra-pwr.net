@@ -7,7 +7,7 @@ angular.module('infish').config ($stateProvider, $urlRouterProvider) ->
       template: """<ui-view></ui-view>"""
       resolve:
         userExams: (UserExam) ->
-          UserExam.index()
+          UserExam.index().then (response) -> response.data
     .state 'exams.index',
       url: '/',
       templateUrl: '/assets/index.html'
@@ -21,4 +21,4 @@ angular.module('infish').config ($stateProvider, $urlRouterProvider) ->
         # before going into this resolve function, very handy
         # http://www.jvandemo.com/how-to-resolve-application-wide-resources-centrally-in-angularjs-with-ui-router/
         userExam: ($stateParams, userExams, UserExam) ->
-          UserExam.show($stateParams.id)
+          UserExam.show($stateParams.id).then (response) -> response.data
