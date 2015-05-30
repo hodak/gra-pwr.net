@@ -14,7 +14,11 @@ describe UserExam do
       expect(subject.to_a).to match_array [first_for_user, second_for_user]
     end
 
-    it 'also joins exam within one query' do
+    it 'takes only 1 query' do
+      expect { subject.to_a }.to query_limit_eq(1)
+    end
+
+    it 'also includes exam within one query' do
       exams = subject.to_a
       expect { exams.first.exam }.to query_limit_eq(0)
     end
