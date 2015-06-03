@@ -26,14 +26,12 @@ div
         )
         | {{ answer.text }}
 
-  / TODO: disable this button after checking answers or when no answer is checked
   button(
     type="button"
     ng-click="checkAnswers()"
     ng-disabled="shouldDisableCheckAnswersButton()"
   ) Sprawdź
 
-  / TODO: disable this button before checking answer
   button(
     type="button"
     ng-click="nextQuestion()"
