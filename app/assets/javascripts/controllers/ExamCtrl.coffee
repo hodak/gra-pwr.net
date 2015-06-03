@@ -98,8 +98,12 @@ angular.module('infish').controller 'ExamCtrl', ($scope, $stateParams, userExam,
     # TODO this probably should be called only once, not every draw
     keys = Object.keys($scope.exam.questions)
     randomlyPickedID = keys[Math.floor(Math.random() * keys.length)]
-    $scope.current.question = $scope.exam.questions[randomlyPickedID]
-    $scope.current.question.id = randomlyPickedID
+
+    question = $scope.exam.questions[randomlyPickedID]
+    question.answers = question.answers.sort -> 0.5 - Math.random()
+    question.id = randomlyPickedID
+
+    $scope.current.question = question
 
   # SYNC
   $scope.syncUserAnswers = ->
