@@ -1,11 +1,10 @@
-angular.module('infish').controller 'ExamFormCtrl', ($scope, Exam) ->
+angular.module('infish').controller 'ExamFormCtrl', ($scope, $state, Exam) ->
   console.log 'exam form ctrl'
 
   $scope.send = ->
     Exam.createOrUpdate($scope.exam)
       .success ->
-        console.log 'success'
-        # TODO redirect to newly created exam
+        $state.go 'exams.show', id: $scope.exam.id
       .error (e) ->
         console.log 'error', e
         # TODO some kind of global error handling?
