@@ -17,7 +17,7 @@ class ExamForm
 
   attribute :id, String
   attribute :name, String
-  attribute :questions, Hash[Symbol => Hash]
+  attribute :questions, Hash[String => Hash[Symbol => Object]]
 
   # TODO: this shouldn't be form logic
   # Also, this method sux big time!
@@ -28,11 +28,11 @@ class ExamForm
         e.questions.where('id not in (?)', questions.keys).destroy_all
         questions.each do |id, q|
           question = e.questions.find_or_initialize_by(id: id)
-          answers_ids = q['answers'].map { |a| a['id'] }
+          answers_ids = q[:answers].map { |a| a['id'] }
           question.answers.where('id not in (?)', answers_ids).destroy_all
-          question.update!(q.except('answers'))
+          question.update!(q.except(:answers))
 
-          q['answers'].each do |a|
+          q[:answers].each do |a|
             answer = question.answers.find_or_initialize_by(id: a['id'])
             answer.update! a
           end
@@ -58,9 +58,8 @@ class ExamForm
       return errors.add(:questions, 'Must have at least one question') if questions.blank?
 
       questions.each do |uuid, question|
-        question = question.with_indifferent_access
-        errors.add(uuid, 'ID is not valid UUID') if (question['id'] =~ UUID::REGEX) != 0
-        errors.add(uuid, 'Question text is required') if question['text'].blank?
+        errors.add(uuid, 'ID is not valid UUID') if (question[:id] =~ UUID::REGEX) != 0
+        errors.add(uuid, 'Question text is required') if question[:text].blank?
       end
     end
 
@@ -68,7 +67,6 @@ class ExamForm
       return if questions.blank?
 
       questions.each do |uuid, question|
-        question = question.with_indifferent_access
         answers = question[:answers]
 
         errors.add(uuid, 'Questions must have at least two answers') if answers.length < MINIMUM_ANSWERS
@@ -76,7 +74,7 @@ class ExamForm
 
         answers.each do |answer|
           answer = answer.with_indifferent_access
-          errors.add(uuid, "ID of \"#{answer[:text]}\" is not valid UUID") if (answer['id'] =~ UUID::REGEX) != 0
+          errors.add(uuid, "ID of \"#{answer['text']}\" is not valid UUID") if (answer['id'] =~ UUID::REGEX) != 0
         end
       end
     end
