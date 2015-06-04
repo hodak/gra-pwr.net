@@ -14,7 +14,7 @@ module Api
       if form.valid?
         exam = Exam.find_or_initialize_by({ id: form.id })
         exam.update!(form.to_h)
-        current_user.user_exams.create! exam: exam
+        conditionally_create_user_exam(exam)
 
         render json: { exam: ExamRepresenter.new(exam).to_h }
       else
@@ -25,6 +25,11 @@ module Api
     private
       def exam_params
         params.require(:exam).permit(:name).merge({ id: params[:id] })
+      end
+
+      def conditionally_create_user_exam(exam)
+        return if current_user.exams.exists?(id: exam.id)
+        current_user.user_exams.create! exam: exam
       end
   end
 end

@@ -46,5 +46,11 @@ describe Api::ExamsController do
       expect(ue.user_id).to eql user.id
       expect(ue.exam_id).to eql parsed_body['exam']['id']
     end
+
+    it "doesn't create user exam for user editing exam if already exists" do
+      put :update, params
+      params[:exam][:name] = 'Hodor'
+      expect { put :update, params }.not_to change { UserExam.count }
+    end
   end
 end
