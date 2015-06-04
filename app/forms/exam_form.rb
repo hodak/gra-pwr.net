@@ -1,6 +1,13 @@
 class ExamForm
+  MINIMUM_ANSWERS = 2
+
   include Virtus.model
   include ActiveModel::Validations
+
+  def initialize(exam_params)
+    super(exam_params)
+    normalize!
+  end
 
   validates_presence_of :id
   validates_format_of :id, with: UUID::REGEX
@@ -10,7 +17,7 @@ class ExamForm
 
   attribute :id, String
   attribute :name, String
-  attribute :questions, Hash
+  attribute :questions, Hash[Symbol => Hash]
 
   # TODO: this shouldn't be form logic
   # Also, this method sux big time!
@@ -36,6 +43,17 @@ class ExamForm
 
   # TODO: get rid of those with_indifferent_access
   private
+    def normalize!
+      self.questions = questions.select do |id, question|
+        question[:answers] = question[:answers].select do |answer|
+          answer = answer.with_indifferent_access
+          answer['text'].present?
+        end
+
+        question[:text].present? || question[:answers].length > MINIMUM_ANSWERS
+      end
+    end
+
     def questions_validation
       return errors.add(:questions, 'Must have at least one question') if questions.blank?
 
@@ -53,7 +71,7 @@ class ExamForm
         question = question.with_indifferent_access
         answers = question[:answers]
 
-        errors.add(uuid, 'Questions must have at least two answers') if answers.length < 2
+        errors.add(uuid, 'Questions must have at least two answers') if answers.length < MINIMUM_ANSWERS
         errors.add(uuid, 'At least one answer must be correct') if answers.none? { |a| a[:correct] }
 
         answers.each do |answer|

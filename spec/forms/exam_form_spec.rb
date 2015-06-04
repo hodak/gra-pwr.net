@@ -89,4 +89,27 @@ describe ExamForm do
       })
     end
   end
+
+  describe 'normalization' do
+    it 'removes questions without name and proper answers' do
+      params[:questions]['74fdaa4c-810e-4683-b7a7-8b5e6bb55e83'] = {
+        id: '74fdaa4c-810e-4683-b7a7-8b5e6bb55e83',
+        text: '',
+        answers: [
+          { id: '74fdaa4c-810e-4683-b7a7-8b5e6bb55e83', text: '', correct: true },
+          { id: 'f63d7f14-9889-4efa-9abc-476feebbefa0', text: '', correct: false },
+        ]
+      }
+      expect(subject).to be_valid
+      expect(subject.questions.length).to eql 1
+    end
+
+    it 'removes empty answers' do
+      params[:questions].values.first[:answers] << {
+        id: '74fdaa4c-810e-4683-b7a7-8b5e6bb55e83', text: '', correct: true
+      }
+      expect(subject).to be_valid
+      expect(subject.questions.values.first[:answers].length).to eql 3
+    end
+  end
 end
