@@ -5,11 +5,7 @@ class UserExamRepresenter < Struct.new(:user_exam)
       id: user_exam.id,
       repeat: user_exam.repeat,
       repeat_wrong: user_exam.repeat_wrong,
-      exam: {
-        id: exam.id,
-        name: exam.name,
-        questions: exam.questions.inject({}) { |h, q| h[q.id] = QuestionRepresenter.new(q).to_h; h }
-      },
+      exam: ExamRepresenter.new(exam).to_h,
       user_answers: user_exam.user_answers.where(user_exam_id: user_exam.id).map do |ua|
         {
           id: ua.id,

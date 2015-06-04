@@ -7,6 +7,8 @@ Rails.application.routes.draw do
     end
 
     get 'user_exams/:exam_id', to: 'user_exams#show'
+
+    resources :exams, only: [:update]
   end
 
   get 'api' => proc { [404, {}, ['Invalid API endpoint']] }
