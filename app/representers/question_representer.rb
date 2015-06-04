@@ -3,7 +3,8 @@ class QuestionRepresenter < Struct.new(:question)
     {
       id: question.id,
       text: question.text,
-      answers: question.answers.map { |a| AnswerRepresenter.new(a).to_h }
+      answers: question.answers.map { |a| AnswerRepresenter.new(a).to_h },
+      created_at: question.created_at
     }
   end
 end

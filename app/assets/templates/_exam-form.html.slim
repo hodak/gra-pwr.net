@@ -5,17 +5,23 @@ div ng-controller="ExamFormCtrl"
 
     div errors="errors['name']"
 
-    div ng-repeat="question in exam.questions"
+    div ng-repeat="question in exam.questions | orderObjectBy: 'created_at'"
+      h3 ng-bind="question.created_at"
       button type="button" ng-click="deleteQuestion(question)" &times;
       textarea ng-model="question.text"
 
       ul
         li ng-repeat="answer in question.answers"
           input type="checkbox" ng-model="answer.correct"
-          input type="text" ng-model="answer.text"
+          input type="text" ng-model="answer.text" ng-change="onAnswerChange(question)"
           button type="button" ng-click="deleteAnswer(question, answer)" &times;
 
       div errors="errors[question.id]"
 
     br
+
+    button type="button" ng-click="addNewQuestion()" + dodaj pytanie
+
+    br
+
     button type="submit" Zapisz!
