@@ -1,5 +1,13 @@
 module Api
   class ExamsController < ApiController
+    def show
+      render json: { exam: ExamRepresenter.new(Exam.find(params[:id])).to_h }
+    rescue ActiveRecord::RecordNotFound
+      render json: { error: ['Exam not found'] }, status: 404
+    rescue PG::InvalidTextRepresentation
+      render json: { error: ['Is not valid UUID'] }, status: 422
+    end
+
     def update
       form = ExamForm.new(exam_params)
 

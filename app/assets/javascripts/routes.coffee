@@ -16,6 +16,13 @@ angular.module('infish').config ($stateProvider, $urlRouterProvider) ->
       url: '/exam/new'
       templateUrl: '/assets/create-exam.html'
       controller: 'CreateExamCtrl'
+    .state 'exams.edit',
+      url: '/exam/:id/edit'
+      templateUrl: '/assets/edit-exam.html'
+      controller: 'EditExamCtrl'
+      resolve:
+        exam: ($stateParams, Exam) ->
+          Exam.show($stateParams.id).then (response) -> response.data.exam
     .state 'exams.show',
       url: '/exam/:id'
       templateUrl: '/assets/show-exam.html'
