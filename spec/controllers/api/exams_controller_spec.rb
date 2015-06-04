@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 describe Api::ExamsController do
+  let!(:user) { sign_in }
+
   describe 'update' do
     let(:id) { '70108314-cade-4fe4-b16a-5c2a2ccff55a' }
     let(:params) { {
@@ -36,6 +38,13 @@ describe Api::ExamsController do
       put :update, params
       expect(parsed_body['error']['id']).to eql ['is invalid']
       expect(response.status).to eql 422
+    end
+
+    it 'automatically creates user exam for exam creator' do
+      expect { put :update, params }.to change { UserExam.count }
+      ue = UserExam.last
+      expect(ue.user_id).to eql user.id
+      expect(ue.exam_id).to eql parsed_body['exam']['id']
     end
   end
 end

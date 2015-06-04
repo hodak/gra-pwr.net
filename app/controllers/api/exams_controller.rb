@@ -6,6 +6,7 @@ module Api
       if form.valid?
         exam = Exam.find_or_initialize_by({ id: form.id })
         exam.update!(form.to_h)
+        current_user.user_exams.create! exam: exam
 
         render json: { exam: ExamRepresenter.new(exam).to_h }
       else
