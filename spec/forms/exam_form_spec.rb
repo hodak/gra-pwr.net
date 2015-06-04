@@ -10,19 +10,19 @@ describe ExamForm do
         text: 'Question one text',
         answers: [
           {
-            id: '9a95c86b-72e3-428f-9801-5b54fa4e13be',
-            text: 'Incorrect answer',
-            correct: false
+            'id' => '9a95c86b-72e3-428f-9801-5b54fa4e13be',
+            'text' => 'Incorrect answer',
+            'correct' => false
           },
           {
-            id: 'be832612-670b-411b-83d9-1f6e00877e51',
-            text: 'Correct answer',
-            correct: true
+            'id' => 'be832612-670b-411b-83d9-1f6e00877e51',
+            'text' => 'Correct answer',
+            'correct' => true
           },
           {
-            id: '8316f649-4bfe-4055-b2a1-838cd07a5072',
-            text: "Answer so dumb you don't even want to imagine",
-            correct: false
+            'id' => '8316f649-4bfe-4055-b2a1-838cd07a5072',
+            'text' => "Answer so dumb you don't even want to imagine",
+            'correct' => false
           }
         ]
       }
@@ -66,7 +66,7 @@ describe ExamForm do
     end
 
     it 'requires valid uuid of answers' do
-      params[:questions].values.first[:answers].second[:id] = 'e'
+      params[:questions].values.first[:answers].second['id'] = 'e'
       expect(subject).to be_invalid
       expect(errors).to eql({
         :'bc05dc5d-a14d-42e2-8a46-f7d933de18b2' => ['ID of "Correct answer" is not valid UUID']
@@ -82,7 +82,7 @@ describe ExamForm do
     end
 
     it 'requires at least one answer to be valid' do
-      params[:questions].values.first[:answers][1][:correct] = false
+      params[:questions].values.first[:answers][1]['correct'] = false
       expect(subject).to be_invalid
       expect(errors).to eql({
         :'bc05dc5d-a14d-42e2-8a46-f7d933de18b2' => ['At least one answer must be correct']
@@ -96,8 +96,8 @@ describe ExamForm do
         id: '74fdaa4c-810e-4683-b7a7-8b5e6bb55e83',
         text: '',
         answers: [
-          { id: '74fdaa4c-810e-4683-b7a7-8b5e6bb55e83', text: '', correct: true },
-          { id: 'f63d7f14-9889-4efa-9abc-476feebbefa0', text: '', correct: false },
+          { 'id' => '74fdaa4c-810e-4683-b7a7-8b5e6bb55e83', 'text' => '', 'correct' => true },
+          { 'id' => 'f63d7f14-9889-4efa-9abc-476feebbefa0', 'text' => '', 'correct' => false },
         ]
       }
       expect(subject).to be_valid
@@ -106,7 +106,7 @@ describe ExamForm do
 
     it 'removes empty answers' do
       params[:questions].values.first[:answers] << {
-        id: '74fdaa4c-810e-4683-b7a7-8b5e6bb55e83', text: '', correct: true
+        'id' => '74fdaa4c-810e-4683-b7a7-8b5e6bb55e83', 'text' => '', 'correct' => true
       }
       expect(subject).to be_valid
       expect(subject.questions.values.first[:answers].length).to eql 3

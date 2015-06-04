@@ -41,12 +41,10 @@ class ExamForm
     end
   end
 
-  # TODO: get rid of those with_indifferent_access
   private
     def normalize!
       self.questions = questions.select do |id, question|
         question[:answers] = question[:answers].select do |answer|
-          answer = answer.with_indifferent_access
           answer['text'].present?
         end
 
@@ -70,10 +68,9 @@ class ExamForm
         answers = question[:answers]
 
         errors.add(uuid, 'Questions must have at least two answers') if answers.length < MINIMUM_ANSWERS
-        errors.add(uuid, 'At least one answer must be correct') if answers.none? { |a| a[:correct] }
+        errors.add(uuid, 'At least one answer must be correct') if answers.none? { |a| a['correct'] }
 
         answers.each do |answer|
-          answer = answer.with_indifferent_access
           errors.add(uuid, "ID of \"#{answer['text']}\" is not valid UUID") if (answer['id'] =~ UUID::REGEX) != 0
         end
       end
