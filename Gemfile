@@ -5,6 +5,8 @@ gem 'envied', '~> 0.8.1'
 gem 'pg', '~> 0.17.1'
 gem 'virtus', '~> 1.0.5'
 
+gem 'omniauth-facebook', '~> 2.0.1'
+
 gem 'coffee-rails', '~> 4.0.1'
 gem 'sass-rails', '~> 4.0.3'
 gem 'slim-rails', '~> 2.1.0'

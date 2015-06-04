@@ -1,8 +1,9 @@
 module Api
   class ApiController < ApplicationController
-    # TODO lol
-    def current_user
-      User.first
+    before_action :authenticate_user!
+
+    def authenticate_user!
+      head 401 unless signed_in?
     end
   end
 end

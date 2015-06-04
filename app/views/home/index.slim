@@ -1,1 +1,4 @@
-div ui-view=""
+- if signed_in?
+  div ui-view=""
+- else
+  h1 NOT SIGNED IN!

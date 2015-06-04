@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'auth/:provider/callback', to: 'sessions#create'
+  # TODO get?
+  get 'logout', to: 'sessions#destroy'
+
   namespace :api do
     resources :user_exams, only: [:index] do
       member do
@@ -17,4 +21,3 @@ Rails.application.routes.draw do
   root 'home#index'
   get '*path', to: 'home#index'
 end
-

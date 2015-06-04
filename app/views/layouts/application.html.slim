@@ -7,6 +7,9 @@ html ng-app="infish"
     /* Beware, CSRF is disabled */
     /* = csrf_meta_tags */
   body
+    a href="/auth/facebook" Login with facebook
+    a href="/logout" Log out
+
     = yield
 
     = javascript_include_tag 'application'
