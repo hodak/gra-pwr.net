@@ -2,6 +2,8 @@ angular.module('infish').controller 'ExamCtrl', ($scope, $stateParams, userExam,
   $scope.userExam = userExam
   $scope.exam = userExam.exam
 
+  console.log $scope.exam
+
   # here will go questions that have repeat = 0 so it's more efficient to
   # draw next question
   $scope.exam.masteredQuestions = []
