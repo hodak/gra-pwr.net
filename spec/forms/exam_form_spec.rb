@@ -74,7 +74,7 @@ describe ExamForm do
     end
 
     it 'requires at least two answers' do
-      params[:questions].values.first[:answers] = [params[:questions].values.first[:answers].first]
+      params[:questions].values.first[:answers] = [params[:questions].values.first[:answers].second]
       expect(subject).to be_invalid
       expect(errors).to eql({
         :'bc05dc5d-a14d-42e2-8a46-f7d933de18b2' => ['Questions must have at least two answers']

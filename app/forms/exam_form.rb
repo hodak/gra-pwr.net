@@ -12,9 +12,30 @@ class ExamForm
   attribute :name, String
   attribute :questions, Hash
 
+  # TODO: this shouldn't be form logic
+  # Also, this method sux big time
+  def persist!
+    ActiveRecord::Base.transaction do
+      Exam.find_or_initialize_by({ id: id }).tap do |e|
+        e.update!(exam_hash)
+        questions.each do |id, q|
+          question = e.questions.find_or_initialize_by(id: id)
+          question.update!(q.except('answers'))
+
+          q['answers'].each do |a|
+            answer = question.answers.find_or_initialize_by(id: a['id'])
+            answer.update! a
+          end
+        end
+      end
+    end
+  end
+
+  # TODO: get rid of those with_indifferent_access
   private
     def questions_validation
-      errors.add(:questions, 'Must have at least one question') if questions.length == 0
+      return errors.add(:questions, 'Must have at least one question') if questions.blank?
+
       questions.each do |uuid, question|
         question = question.with_indifferent_access
         errors.add(uuid, 'ID is not valid UUID') if (question['id'] =~ UUID::REGEX) != 0
@@ -23,6 +44,8 @@ class ExamForm
     end
 
     def answers_validation
+      return if questions.blank?
+
       questions.each do |uuid, question|
         question = question.with_indifferent_access
         answers = question[:answers]
@@ -35,5 +58,12 @@ class ExamForm
           errors.add(uuid, "ID of \"#{answer[:text]}\" is not valid UUID") if (answer['id'] =~ UUID::REGEX) != 0
         end
       end
+    end
+
+    def exam_hash
+      {
+        id: id,
+        name: name
+      }
     end
 end

@@ -12,8 +12,7 @@ module Api
       form = ExamForm.new(exam_params)
 
       if form.valid?
-        exam = Exam.find_or_initialize_by({ id: form.id })
-        exam.update!(form.to_h)
+        exam = form.persist!
         conditionally_create_user_exam(exam)
 
         render json: { exam: ExamRepresenter.new(exam).to_h }
@@ -24,7 +23,9 @@ module Api
 
     private
       def exam_params
-        params.require(:exam).permit(:name).merge({ id: params[:id] })
+        params.require(:exam).permit(:name).tap do |whitelisted|
+          whitelisted[:questions] = params[:exam][:questions]
+        end.merge({ id: params[:id] })
       end
 
       def conditionally_create_user_exam(exam)
