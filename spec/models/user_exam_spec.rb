@@ -50,4 +50,15 @@ describe UserExam do
       expect { user_exam.exam.destroy! }.to change { UserExam.count }.by(-1)
     end
   end
+
+  describe 'uniqueness of user_id and exam_id' do
+    let(:user) { FactoryGirl.create(:user) }
+
+    it "doesn't allow to create the same user exam for the same user and exam" do
+      user_exam_1 = FactoryGirl.create(:user_exam, user: user)
+      expect(user_exam_1).to be_valid
+      user_exam_2 = FactoryGirl.build(:user_exam, user: user, exam: user_exam_1.exam)
+      expect(user_exam_2).to be_invalid
+    end
+  end
 end
