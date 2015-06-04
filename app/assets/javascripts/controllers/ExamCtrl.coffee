@@ -23,7 +23,7 @@ angular.module('infish').controller 'ExamCtrl', ($scope, $stateParams, userExam,
       return if question.repeat?
       question.repeat = $scope.userExam.repeat
 
-    drawNextQuestion()
+    drawNextQuestion() if $scope.questionsLeftCount() > 0
 
   $scope.current =
     question: null # init() draws next questions

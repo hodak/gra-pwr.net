@@ -7,7 +7,7 @@ h5 Repeat wrong: {{ userExam.repeat_wrong }}
 h5 Pozostało pytań do opanowania: {{ questionsLeftCount() }}
 h5 Opanowanych pytań: {{ exam.masteredQuestions.length }}
 
-div
+div ng-if="questionsLeftCount() > 0"
   h3 ng-bind="current.question.text"
 
   span Powtórzeń tego pytania: {{ current.question.repeat }}
