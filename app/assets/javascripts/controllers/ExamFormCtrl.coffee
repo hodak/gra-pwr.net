@@ -8,3 +8,6 @@ angular.module('infish').controller 'ExamFormCtrl', ($scope, $state, Exam) ->
       .error (e) ->
         console.log 'error', e
         # TODO some kind of global error handling?
+
+  $scope.deleteQuestion = (question) ->
+    delete $scope.exam.questions[question.id]

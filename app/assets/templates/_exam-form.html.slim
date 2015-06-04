@@ -6,7 +6,8 @@ div ng-controller="ExamFormCtrl"
     input type="text" ng-model="exam.name"
 
     div ng-repeat="question in exam.questions"
-      textarea ng-bind="question.text"
+      button type="button" ng-click="deleteQuestion(question)" &times;
+      textarea ng-model="question.text"
 
       ul
         li ng-repeat="answer in question.answers"

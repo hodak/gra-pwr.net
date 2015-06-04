@@ -29,6 +29,16 @@ describe Api::ExamsController do
       ]
     } }
 
+    let(:question_two_id) { '3b42dcc7-e3c9-43d1-bd9b-a2d4cb5dde6c' }
+    let(:question_params_two) { {
+      id: question_two_id,
+      text: 'Question two',
+      answers: [
+        { id: '1a89138f-9ebd-4524-9cf9-59ecedcab3cd', text: 'e', correct: true },
+        { id: 'a4a2ebeb-f7b7-4590-8069-dbd0bdbca586', text: 'f', correct: false }
+      ]
+    } }
+
     let(:params) { {
       id: id,
       exam: {
@@ -93,6 +103,21 @@ describe Api::ExamsController do
 
       put :update, params
       expect(Exam.last.name).to eql 'Exam name'
+    end
+
+    it 'is possible to delete a question and its answers' do
+      params_with_two_questions = params.deep_merge({ exam: { questions: { question_two_id => question_params_two } } })
+      expect { put :update, params_with_two_questions }.to change { Question.count }.by(2)
+      expect { put :update, params }.to change { Answer.count }.by(-2)
+      expect(Question.count).to eql 1
+      expect(Question.first.text).to eql 'Question one text'
+    end
+
+    it 'is possible to delete an answer' do
+      expect { put :update, params }.to change { Answer.count }.by(3)
+      params[:exam][:questions].values.first[:answers].pop
+      expect { put :update, params }.to change { Answer.count }.by(-1)
+      expect(Answer.all.map(&:text)).to eql ['Incorrect answer', 'Correct answer']
     end
   end
 end

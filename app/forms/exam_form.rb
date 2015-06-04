@@ -13,13 +13,16 @@ class ExamForm
   attribute :questions, Hash
 
   # TODO: this shouldn't be form logic
-  # Also, this method sux big time
+  # Also, this method sux big time!
   def persist!
     ActiveRecord::Base.transaction do
       Exam.find_or_initialize_by({ id: id }).tap do |e|
         e.update!(exam_hash)
+        e.questions.where('id not in (?)', questions.keys).destroy_all
         questions.each do |id, q|
           question = e.questions.find_or_initialize_by(id: id)
+          answers_ids = q['answers'].map { |a| a['id'] }
+          question.answers.where('id not in (?)', answers_ids).destroy_all
           question.update!(q.except('answers'))
 
           q['answers'].each do |a|
