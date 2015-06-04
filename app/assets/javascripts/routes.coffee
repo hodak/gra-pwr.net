@@ -12,6 +12,10 @@ angular.module('infish').config ($stateProvider, $urlRouterProvider) ->
       url: '/',
       templateUrl: '/assets/index.html'
       controller: 'IndexCtrl'
+    .state 'exams.create',
+      url: '/exam/new'
+      templateUrl: '/assets/create-exam.html'
+      controller: 'CreateExamCtrl'
     .state 'exams.show',
       url: '/exam/:id'
       templateUrl: '/assets/show-exam.html'

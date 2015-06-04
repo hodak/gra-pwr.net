@@ -1,0 +1,11 @@
+h1 Nowy egzamin
+
+| {{ exam }}
+
+div ng-controller="ExamFormCtrl"
+  form ng-submit="send()"
+    label Nazwa
+    input type="text" ng-model="exam.name"
+
+    br
+    button type="submit" Utwórz
