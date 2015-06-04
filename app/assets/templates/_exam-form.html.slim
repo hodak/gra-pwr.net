@@ -1,7 +1,17 @@
+| {{ exam }}
+
 div ng-controller="ExamFormCtrl"
   form ng-submit="send()"
     label Nazwa
     input type="text" ng-model="exam.name"
+
+    div ng-repeat="question in exam.questions"
+      textarea ng-bind="question.text"
+
+      ul
+        li ng-repeat="answer in question.answers"
+          input type="checkbox" ng-model="answer.correct"
+          input type="text" ng-model="answer.text"
 
     br
     button type="submit" Zapisz!
