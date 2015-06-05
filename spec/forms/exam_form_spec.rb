@@ -88,6 +88,15 @@ describe ExamForm do
         :'bc05dc5d-a14d-42e2-8a46-f7d933de18b2' => ['At least one answer must be correct']
       })
     end
+
+    it "can't have more than nine answers" do
+      answers = params[:questions].values.first[:answers]
+      params[:questions].values.first[:answers] = answers * 3 + [answers[0]]
+      expect(subject).to be_invalid
+      expect(errors).to eql({
+        :'bc05dc5d-a14d-42e2-8a46-f7d933de18b2' => ['Questions must have at most nine answers']
+      })
+    end
   end
 
   describe 'normalization' do

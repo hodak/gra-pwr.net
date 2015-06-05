@@ -1,5 +1,6 @@
 class ExamForm
   MINIMUM_ANSWERS = 2
+  MAXIMUM_ANSWERS = 9
 
   include Virtus.model
   include ActiveModel::Validations
@@ -68,6 +69,7 @@ class ExamForm
         answers = question[:answers]
 
         errors.add(uuid, 'Questions must have at least two answers') if answers.length < MINIMUM_ANSWERS
+        errors.add(uuid, 'Questions must have at most nine answers') if answers.length > MAXIMUM_ANSWERS
         errors.add(uuid, 'At least one answer must be correct') if answers.none? { |a| a['correct'] }
 
         answers.each do |answer|

@@ -16,7 +16,7 @@ angular.module('infish').controller 'ExamFormCtrl', ($scope, $state, Exam) ->
 
   $scope.onAnswerChange = (question) ->
     lastAnswer = question.answers[question.answers.length - 1]
-    if lastAnswer.text != ''
+    if lastAnswer.text != '' && question.answers.length < 9
       question.answers.push(newAnswer())
     else if lastAnswer.text == ''
       removeLastEmptyAnswers(question)
