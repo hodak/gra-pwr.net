@@ -12,6 +12,8 @@ module JsEnv
       host: ENVied.HOST
     }
 
+    data[:user] = CurrentUserRepresenter.new(current_user).to_h if current_user
+
     <<-EOS.html_safe
       <script type="text/javascript">
         shared = angular.module('infish')

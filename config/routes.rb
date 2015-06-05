@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   get 'auth/:provider/callback', to: 'sessions#create'
   # TODO get?
   get 'logout', to: 'sessions#destroy'
+  get 'login', to: 'sessions#new'
 
   namespace :api do
     resources :user_exams, only: [:index, :update] do

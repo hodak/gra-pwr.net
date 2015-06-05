@@ -9,6 +9,8 @@ angular.module('infish').config ($stateProvider, $urlRouterProvider, $locationPr
       resolve:
         userExams: (UserExam) ->
           UserExam.index().then (response) -> response.data
+      controller: (Redirector) ->
+        Redirector.redirectToSavedUrl()
     .state 'exams.index',
       url: '/',
       templateUrl: '/assets/index.html'
