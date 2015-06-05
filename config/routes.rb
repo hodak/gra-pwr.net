@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     resources :exams, only: [:show, :update]
   end
 
+  resources :exams, only: [:index]
+
   get 'api' => proc { [404, {}, ['Invalid API endpoint']] }
   get 'api/*path' => proc { [404, {}, ['Invalid API endpoint']] }
 

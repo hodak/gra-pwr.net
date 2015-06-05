@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     user = User.omniauth(env['omniauth.auth'])
     session[:user_id] = user.id
 
-    redirect_to root_url
+    redirect_to exams_url
   end
 
   def destroy
