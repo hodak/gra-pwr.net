@@ -5,7 +5,10 @@ angular.module('infish').controller 'ExamFormCtrl', ($scope, $state, Exam) ->
     delete $scope.exam.questions[question.id]
 
   $scope.deleteAnswer = (question, answer) ->
-    question.answers.splice(question.answers.indexOf(answer), 1)
+    if question.answers.length > NUMBER_OF_ANSWERS
+      question.answers.splice(question.answers.indexOf(answer), 1)
+    else
+      answer.text = ''
 
   $scope.send = ->
     Exam.createOrUpdate($scope.exam)
