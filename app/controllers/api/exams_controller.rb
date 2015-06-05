@@ -1,7 +1,9 @@
 module Api
   class ExamsController < ApiController
     def show
-      render json: { exam: ExamRepresenter.new(Exam.find(params[:id])).to_h }
+      exam = Exam.find(params[:id])
+      conditionally_create_user_exam(exam)
+      render json: { exam: ExamRepresenter.new(exam).to_h }
     rescue ActiveRecord::RecordNotFound
       render json: { error: ['Exam not found'] }, status: 404
     rescue PG::InvalidTextRepresentation

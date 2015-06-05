@@ -3,6 +3,21 @@ require 'rails_helper'
 describe Api::ExamsController do
   let!(:user) { sign_in }
 
+  describe 'show' do
+    let(:exam) { FactoryGirl.create(:exam) }
+
+    subject { get :show, id: exam.id }
+
+    it 'creates user_exam when user enters the exam for the first time' do
+      expect { subject }.to change { UserExam.count }.by(1)
+    end
+
+    it 'returns proper exam' do
+      subject
+      expect(parsed_body['exam']['id']).to eql exam.id
+    end
+  end
+
   describe 'update' do
     let(:id) { '70108314-cade-4fe4-b16a-5c2a2ccff55a' }
     let(:question_id) { 'bc05dc5d-a14d-42e2-8a46-f7d933de18b2' }
