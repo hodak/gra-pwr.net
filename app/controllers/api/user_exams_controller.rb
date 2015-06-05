@@ -5,8 +5,9 @@ module Api
     end
 
     # TODO: this method is untested :O
-    # Also, beware, it accepts exam id, not user exam id
     def show
+      Exam.find(params[:exam_id])
+
       user_exam = current_user.user_exams.find_or_initialize_by(exam_id: params[:exam_id])
       user_exam.save! unless user_exam.persisted?
       render json: UserExamRepresenter.new(user_exam).to_h
