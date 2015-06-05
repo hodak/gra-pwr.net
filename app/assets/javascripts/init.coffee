@@ -12,11 +12,11 @@ App.config ($provide, $httpProvider, Rails) ->
 
   $httpProvider.interceptors.push 'railsAssetsInterceptor'
 
-  $provide.factory 'unauthorizedInterceptor', ($injector) ->
+  $provide.factory 'unauthorizedInterceptor', ($q, $injector) ->
     responseError: (rejection) ->
       if rejection.status == 401
         $injector.get('Redirector').saveUrl(window.location.hash)
         return window.location.pathname = '/login'
-      rejection
+      $q.reject(rejection)
 
   $httpProvider.interceptors.push 'unauthorizedInterceptor'
