@@ -1,49 +1,47 @@
-h1 ng-bind="exam.name"
+div ng-if="userExam"
+  h1 ng-bind="exam.name"
+  a ui-sref="exams.edit({ id: exam.id })" Edytuj
 
-a ui-sref="exams.edit({ id: exam.id })" Edytuj
+  | {{ newUserAnswers }}
 
-br
+  h5 Repeat: {{ userExam.repeat }}
+  h5 Repeat wrong: {{ userExam.repeat_wrong }}
+  h5 Pozostało pytań do opanowania: {{ questionsLeftCount() }}
+  h5 Opanowanych pytań: {{ exam.masteredQuestions.length }}
 
-| {{ newUserAnswers }}
+  div ng-if="questionsLeftCount() > 0"
+    h3 ng-bind="current.question.text"
 
-h5 Repeat: {{ userExam.repeat }}
-h5 Repeat wrong: {{ userExam.repeat_wrong }}
-h5 Pozostało pytań do opanowania: {{ questionsLeftCount() }}
-h5 Opanowanych pytań: {{ exam.masteredQuestions.length }}
+    span Powtórzeń tego pytania: {{ current.question.repeat }}
 
-div ng-if="questionsLeftCount() > 0"
-  h3 ng-bind="current.question.text"
+    ul
+      li(
+        ng-repeat="answer in current.question.answers"
+        ng-class="answerClass(answer)"
+      )
+        label
+          input(
+            type="checkbox"
+            checklist-model="current.answers"
+            checklist-value="answer.id"
+            ng-disabled="current.check"
+          )
+          | {{ answer.text }}
 
-  span Powtórzeń tego pytania: {{ current.question.repeat }}
+    button(
+      type="button"
+      ng-click="checkAnswers()"
+      ng-disabled="shouldDisableCheckAnswersButton()"
+    ) Sprawdź
 
-  ul
-    li(
-      ng-repeat="answer in current.question.answers"
-      ng-class="answerClass(answer)"
-    )
-      label
-        input(
-          type="checkbox"
-          checklist-model="current.answers"
-          checklist-value="answer.id"
-          ng-disabled="current.check"
-        )
-        | {{ answer.text }}
+    button(
+      type="button"
+      ng-click="nextQuestion()"
+      ng-disabled="shouldDisableNextQuestionButton()"
+    ) Następne pytanie
 
-  button(
-    type="button"
-    ng-click="checkAnswers()"
-    ng-disabled="shouldDisableCheckAnswersButton()"
-  ) Sprawdź
-
-  button(
-    type="button"
-    ng-click="nextQuestion()"
-    ng-disabled="shouldDisableNextQuestionButton()"
-  ) Następne pytanie
-
-  button(
-    type="button"
-    ng-click="syncUserAnswers()"
-    ng-disabled="newUserAnswers.length == 0"
-  ) Sync!
+    button(
+      type="button"
+      ng-click="syncUserAnswers()"
+      ng-disabled="newUserAnswers.length == 0"
+    ) Sync!

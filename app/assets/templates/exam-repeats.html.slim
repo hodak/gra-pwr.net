@@ -1,0 +1,19 @@
+h1 Choose repeats
+
+| {{ userExam }}
+
+br
+
+form ng-submit="submit()"
+  | Powtórzenia pytania
+  select ng-model="userExam.repeat" ng-options="i for i in oneToNine"
+
+  br
+
+  | Dodatkowe Powtórzenia pytania po błędnej odpowiedzi
+  select ng-model="userExam.repeat_wrong" ng-options="i for i in oneToNine"
+
+  br
+
+  button type="submit" Zapisz!
+

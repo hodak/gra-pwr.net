@@ -4,8 +4,12 @@ angular.module('infish').service 'UserExam', ($http, $q) ->
   index: ->
     $http.get base
 
-  show: (exam_id) ->
-    $http.get "#{base}/#{exam_id}"
+  show: (examID) ->
+    $http.get "#{base}/#{examID}"
+
+  update: (userExam) ->
+    $http.put "#{base}/#{userExam.id}",
+      user_exam: userExam
 
   syncUserAnswers: (userExam, userAnswers) ->
     $http.put "#{base}/#{userExam.id}/sync_user_answers",

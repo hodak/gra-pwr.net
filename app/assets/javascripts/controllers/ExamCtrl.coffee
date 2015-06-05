@@ -1,4 +1,7 @@
-angular.module('infish').controller 'ExamCtrl', ($scope, $stateParams, userExam, UserExam) ->
+angular.module('infish').controller 'ExamCtrl', ($scope, $stateParams, $state, userExam, UserExam) ->
+  if !userExam.repeat || !userExam.repeat_wrong
+    return $state.go 'exams.repeats', id: userExam.exam.id
+
   $scope.userExam = userExam
   $scope.exam = userExam.exam
 

@@ -34,3 +34,8 @@ angular.module('infish').config ($stateProvider, $urlRouterProvider, $locationPr
         # http://www.jvandemo.com/how-to-resolve-application-wide-resources-centrally-in-angularjs-with-ui-router/
         userExam: ($stateParams, userExams, UserExam) ->
           UserExam.show($stateParams.id).then (response) -> response.data
+
+    .state 'exams.repeats',
+      url: '/exam/:id/repeats'
+      templateUrl: '/assets/exam-repeats.html'
+      controller: 'UserExamChooseRepeats'

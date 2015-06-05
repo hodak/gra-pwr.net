@@ -5,9 +5,18 @@ module Api
     end
 
     # TODO: this method is untested :O
+    # Also, beware, it accepts exam id, not user exam id
     def show
       user_exam = current_user.user_exams.find_or_initialize_by(exam_id: params[:exam_id])
+      user_exam.save! unless user_exam.persisted?
       render json: UserExamRepresenter.new(user_exam).to_h
+    end
+
+    def update
+      ue = UserExam.find(params[:id])
+      ue.update! user_exam_params
+
+      head 200
     end
 
     # TODO global api handling of 404 active record not found
@@ -29,6 +38,10 @@ module Api
 
       def user_answers_params
         params.permit(user_answers: [:id, :question_id, answers: []])[:user_answers]
+      end
+
+      def user_exam_params
+        params.require(:user_exam).permit(:repeat, :repeat_wrong)
       end
   end
 end

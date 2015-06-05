@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get 'logout', to: 'sessions#destroy'
 
   namespace :api do
-    resources :user_exams, only: [:index] do
+    resources :user_exams, only: [:index, :update] do
       member do
         put :sync_user_answers
       end
