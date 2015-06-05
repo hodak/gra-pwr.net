@@ -1,5 +1,5 @@
-angular.module('infish').controller 'UserExamChooseRepeats', ($scope, $stateParams, $state, userExams, UserExam) ->
-  $scope.userExam = (ue for ue in userExams when ue.exam.id == $stateParams.id)[0]
+angular.module('infish').controller 'UserExamChooseRepeats', ($scope, $stateParams, $state, userExam, UserExam) ->
+  $scope.userExam = userExam
 
   return $state.go 'exams.index' unless $scope.userExam?
 

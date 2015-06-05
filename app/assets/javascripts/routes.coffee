@@ -41,3 +41,6 @@ angular.module('infish').config ($stateProvider, $urlRouterProvider, $locationPr
       url: '/exam/:id/repeats'
       templateUrl: '/assets/exam-repeats.html'
       controller: 'UserExamChooseRepeats'
+      resolve:
+        userExam: ($stateParams, UserExam) ->
+          UserExam.show($stateParams.id).then (response) -> response.data
