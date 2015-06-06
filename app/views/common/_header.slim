@@ -1,0 +1,12 @@
+= link_to 'Infish', root_url
+
+- if signed_in?
+  = link_to 'Egzaminy', exams_index_url
+  = link_to 'Nowy egzamin', new_exam_url
+  a href="/logout" Wyloguj
+  = current_user.name
+  - if current_user.image.present?
+    img src="#{current_user.image}" alt="#{current_user.name}"
+- else
+  a href="/auth/facebook" Zaloguj Facebookiem
+
