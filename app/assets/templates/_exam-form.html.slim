@@ -1,31 +1,72 @@
-div ng-controller="ExamFormCtrl"
-  form ng-submit="send()"
-    label Nazwa
-    input type="text" ng-model="exam.name"
+.crs-grid__row.exam-edit ng-controller="ExamFormCtrl"
+  .crs-grid__column.crs-grid__unit--sm-12
+    hr
 
-    div errors="errors['name']"
+    p
+      | Dostęp do testu będzie ograniczony długim linkiem, dzięki czemu nikt niepowołany nie będzie miał do niego dostępu.
+    p
+      | Edycja testu jest otwarta dla wszystkich, którzy mają dostęp. Niedługo wprowadzimy wersjonowanie testu, aby żaden troll nie mógł pozmieniać odpowiedzi czy też usunąć wszystkich pytań.
 
-    div ng-repeat="question in exam.questions | orderObjectBy: 'created_at'"
-      h3 ng-bind="question.created_at"
-      button type="button" ng-click="deleteQuestion(question)" &times;
-      textarea ng-model="question.text"
+    hr
 
-      ul
-        li ng-repeat="answer in question.answers"
-          input type="checkbox" ng-model="answer.correct"
-          input type="text" ng-model="answer.text" ng-change="onAnswerChange(question)"
-          button(
-            type="button"
-            ng-click="deleteAnswer(question, answer, $last)"
-            ng-if="!$last || answer.text != ''"
-          ) &times;
+    form ng-submit="send()"
+      | {{ errors }}
+      .crs-input__group ng-class="{ 'crs-input__alert--error': errors['name'] }"
+        input type="text" ng-model="exam.name" required=""
+        label Nazwa testu (np. Test z elektrofizyki, prowadzący Jan Kowalski, PWr, semestr 3.)
+        div errors="errors['name']"
 
-      div errors="errors[question.id]"
 
-    br
+      .exam-edit__question ng-repeat="question in exam.questions | orderObjectBy: 'created_at'"
+        .crs-grid__row
+          .crs-grid__column.crs-grid__unit--sm-1
+            | {{ $index + 1 }}
+          .crs-grid__column.crs-grid__unit--sm-10
+            .crs-input__group ng-if="$index == 0"
+              textarea ng-model="question.text" rows="4" placeholder="Pierwsze pytanie. Pod spodem jest miejsce na odpowiedzi (max 9). Po lewej stronie zaznacz, które odpowiedzi są poprawne. Nie dodawaj przedrostków np. A, B, C... ponieważ kolejność pytań będzie losowana."
 
-    button type="button" ng-click="addNewQuestion()" + dodaj pytanie
+            .crs-input__group ng-if="$index != 0"
+              textarea ng-model="question.text"
 
-    br
+          .crs-grid__column.crs-grid__unit--sm-1
+            a href="" ng-click="deleteQuestion(question)" tabindex="-1"
+              | &times;
 
-    button type="submit" Zapisz!
+        ul.exam-edit__answers-list ng-class="{ 'crs-input__alert--error': errors[question.id] }"
+          li.crs-grid__row ng-repeat="answer in question.answers"
+            .crs-grid__column.crs-grid__unit--sm-1
+              .crs-toggle
+                input id="{{ answer.id }}" type="checkbox" ng-model="answer.correct"
+                label for="{{ answer.id }}"
+                  .crs-toggle__switch
+
+            .crs-grid__column.crs-grid__unit--sm-10
+              .crs-input__group
+                input type="text" ng-model="answer.text" ng-change="onAnswerChange(question)"
+            .crs-grid__column.crs-grid__unit--sm-1
+              a(
+                href=""
+                ng-click="deleteAnswer(question, answer, $last)"
+                ng-if="(!$last && !$first) || answer.text != ''"
+                tabindex="-1"
+              ) &times;
+
+          li ng-if="errors[question.id]"
+            div errors="errors[question.id]"
+
+      p.crs-utils--center
+        span.crs-input__alert--error ng-if="errors['questions']"
+          span errors="errors['questions']"
+
+        br
+
+        button.crs-button.crs-button--hollow(
+          type="button"
+          ng-click="addNewQuestion()"
+        ) + &nbsp;&nbsp; dodaj pytanie
+
+      hr
+      br
+
+      p.crs-utils--right
+        button.crs-button.crs-button--success type="submit" Zapisz!
