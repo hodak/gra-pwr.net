@@ -21,6 +21,10 @@ Rails.application.routes.draw do
   get 'api' => proc { [404, {}, ['Invalid API endpoint']] }
   get 'api/*path' => proc { [404, {}, ['Invalid API endpoint']] }
 
+  # TODO: Hack for serving fonts from cuirass, lol
+  get '/fonts/:name.:ext', to: redirect('/assets/%{name}.%{ext}')
+
   root 'home#index'
+  # TODO: 404
   get '*path', to: 'home#index'
 end
