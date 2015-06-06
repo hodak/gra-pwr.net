@@ -1,12 +1,31 @@
-= link_to 'Infish', root_url
+.crs-topbar
+  .crs-topbar__left
+    a.crs-topbar__logo href="#{root_url}"
+      | Infish
+      small alpha version
 
-- if signed_in?
-  = link_to 'Egzaminy', exams_index_url
-  = link_to 'Nowy egzamin', new_exam_url
-  a href="/logout" Wyloguj
-  = current_user.name
-  - if current_user.image.present?
-    img src="#{current_user.image}" alt="#{current_user.name}"
-- else
-  a href="/auth/facebook" Zaloguj Facebookiem
+  .crs-topbar__right.text-right
+    ul.crs-topbar__nav.crs-utils--right.crs-large--visible
+      - if signed_in?
+        li.crs-topbar__option.crs-topbar__separator
+        li.crs-topbar__option
+          = link_to 'Egzaminy', exams_index_url, class: 'crs-topbar__link'
+        li.crs-topbar__option.crs-topbar__separator
+        li.crs-topbar__option
+          = link_to 'Nowy egzamin', new_exam_url, class: 'crs-topbar__link'
+        li.crs-topbar__option.crs-topbar__separator
+        li.crs-topbar__option
+          .crs-dropdown
+            a.crs-user
+              .crs-user__name= current_user.name
+              img.crs-user__avatar src="#{current_user.image}" alt="#{current_user.name}"
+            ul.crs-dropdown__list.crs-utils--center
+              li
+                a.crs-dropdown__option href="/logout"
+                  i.crs-icon-power-button
+                  | Wyloguj
 
+      - else
+        li.crs-topbar__option.crs-topbar__separator
+        li.crs-topbar__option
+          a.crs-topbar__link href="/auth/facebook" Zaloguj przez Facebook

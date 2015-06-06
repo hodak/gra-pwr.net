@@ -6,7 +6,7 @@ html ng-app="infish"
     = stylesheet_link_tag 'application', media: 'all'
     /* Beware, CSRF is disabled */
     /* = csrf_meta_tags */
-  body
+  body.crs-topbar--sticky
     = render 'common/header'
 
     = yield
