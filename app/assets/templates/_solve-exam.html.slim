@@ -1,0 +1,60 @@
+.solve-exam__wrap
+  .crs-grid__row.crs-grid__row--centered.solve-exam__top
+    .crs-grid__column.crs-grid__unit--sm-12
+      div.crs-utils--center
+        small
+          a.pull-right ui-sref="exams.edit({ id: exam.id })" Edytuj test
+        small.pull-left
+          | Powtórz: {{ userExam.repeat }} | Powtórz błędne: {{ userExam.repeat_wrong }} |
+          a<> ui-sref="exams.repeats({ id: exam.id })" Zmień powtórzenia
+          | |
+          a< href="" ng-click="startOver()" Zacznij od początku
+
+        br
+        h2 ng-bind="exam.name"
+
+  .crs-grid__row.crs-grid__row--centered.solve-exam__top
+    .crs-grid__column.crs-grid__unit--sm-12
+      .solve-exam
+        .solve-exam__question-wrap
+          .solve-exam__top-info
+            .top-info__inline
+              | Powtórzenia tego pytania:
+              strong< ng-bind="current.question.repeat"
+
+            .top-info__box.top-info__box--first
+              | Do opanowania
+              br
+              strong
+                | {{ questionsLeftCount() }}
+            .top-info__box.top-info__box--last
+              | Opanowanych
+              br
+              strong
+                | {{ exam.masteredQuestions.length }}
+
+          .solve-exam__content ng-class="questionClass(current.question)"
+            .solve-exam-content__head
+              p ng-bind="current.question.text"
+
+            div solver-answers=""
+
+            .solve-exam__progress
+              span.solve-exam-progress__number
+                | {{ percentageProgress() }}%
+              span.solve-exam-progress__background ng-style="{ 'width': percentageProgress() + '%' }"
+
+        .solve-exam__buttons ng-class="{ 'solve-exam__buttons--answered': !shouldDisableNextQuestionButton() }"
+          button.crs-button.solve-exam__button.solve-exam__button--check(
+            ng-class="!shouldDisableCheckAnswersButton() ? 'crs-button--success' : 'crs-button--hollow'"
+            type="button"
+            ng-click="checkAnswers()"
+            ng-disabled="shouldDisableCheckAnswersButton()"
+          ) Sprawdź
+
+          button.crs-button.crs-button--info.solve-exam__button.solve-exam__button--next(
+            type="button"
+            ng-click="nextQuestion()"
+            ng-disabled="shouldDisableNextQuestionButton()"
+          ) Następne
+

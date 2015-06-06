@@ -38,6 +38,8 @@ angular.module('infish').controller 'ExamCtrl', ($scope, $stateParams, $state, $
   $scope.newUserAnswers = []
 
   $scope.checkAnswers = ->
+    return if $scope.current.answers.length == 0
+
     $scope.current.check = true
     $scope.newUserAnswers.push buildUserAnswer()
     updateRepeatForQuestion()

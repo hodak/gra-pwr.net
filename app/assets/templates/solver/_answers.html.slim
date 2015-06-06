@@ -1,0 +1,17 @@
+.solve-exam-content__answers
+  ul
+    li(
+      ng-repeat="answer in current.question.answers"
+      ng-class="answerClass(answer)"
+    )
+      span.solve-exam-answer__number ng-bind="$index + 1"
+      label
+        input(
+          type="checkbox"
+          checklist-model="current.answers"
+          checklist-value="answer.id"
+          ng-disabled="current.check"
+          name="{{ $index }}"
+        )
+        | {{ answer.text }}
+
