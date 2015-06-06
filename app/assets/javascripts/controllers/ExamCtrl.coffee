@@ -1,11 +1,9 @@
-angular.module('infish').controller 'ExamCtrl', ($scope, $stateParams, $state, userExam, UserExam) ->
+angular.module('infish').controller 'ExamCtrl', ($scope, $stateParams, $state, $interval, userExam, UserExam) ->
   if !userExam.repeat || !userExam.repeat_wrong
     return $state.go 'exams.repeats', id: userExam.exam.id
 
   $scope.userExam = userExam
   $scope.exam = userExam.exam
-
-  console.log $scope.exam
 
   # here will go questions that have repeat = 0 so it's more efficient to
   # draw next question
@@ -111,7 +109,9 @@ angular.module('infish').controller 'ExamCtrl', ($scope, $stateParams, $state, u
     $scope.current.question = question
 
   # SYNC
-  $scope.syncUserAnswers = ->
+  syncUserAnswers = ->
+    return if $scope.newUserAnswers.length == 0
+
     answers = angular.copy($scope.newUserAnswers)
     $scope.newUserAnswers = []
     UserExam.syncUserAnswers($scope.userExam, answers)
@@ -120,6 +120,10 @@ angular.module('infish').controller 'ExamCtrl', ($scope, $stateParams, $state, u
       .error (e) ->
         $scope.newUserAnswers = $scope.newUserAnswers.concat answers
 
+  syncAnswersInterval = $interval syncUserAnswers, 5000
+
+  $scope.$on '$stateChangeStart', ->
+    $interval.cancel(syncAnswersInterval)
+
   # INIT
   init()
-

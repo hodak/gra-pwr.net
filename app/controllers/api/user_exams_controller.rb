@@ -24,6 +24,8 @@ module Api
     # TODO this method is untested :O
     # TODO don't raise error if you try to add one uid twice, just ignore it
     def sync_user_answers
+      return head :ok if params[:user_answers].blank?
+
       user_exam = current_user.user_exams.find(params[:id])
       user_exam.user_answers.create! user_answers_params
 
