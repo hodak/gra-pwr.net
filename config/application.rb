@@ -27,5 +27,9 @@ module Infish
       g.javascripts false
       g.view_specs  false
     end
+
+    config.assets.paths << Rails.root.join('vendor', 'cuirass', 'scripts')
+    config.assets.paths << Rails.root.join('vendor', 'cuirass', 'styles')
+    config.assets.paths << Rails.root.join('vendor', 'cuirass', 'fonts')
   end
 end
