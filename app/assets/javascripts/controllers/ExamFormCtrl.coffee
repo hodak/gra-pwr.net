@@ -56,6 +56,6 @@ angular.module('infish').controller 'ExamFormCtrl', ($scope, $state, Exam) ->
     for id, question of $scope.exam.questions
       question.answers.push(newAnswer())
 
-    pushNewQuestion()
+    pushNewQuestion() if Object.keys($scope.exam.questions).length == 0
 
   prepareQuestions()
