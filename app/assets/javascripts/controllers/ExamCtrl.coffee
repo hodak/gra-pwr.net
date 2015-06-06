@@ -126,8 +126,6 @@ angular.module('infish').controller 'ExamCtrl', ($scope, $stateParams, $state, $
     answers = angular.copy($scope.newUserAnswers)
     $scope.newUserAnswers = []
     UserExam.syncUserAnswers($scope.userExam, answers)
-      .success (response) ->
-        console.log 'success'
       .error (e) ->
         $scope.newUserAnswers = $scope.newUserAnswers.concat answers
 
