@@ -67,6 +67,9 @@ angular.module('infish').controller 'ExamCtrl', ($scope, $stateParams, $state, $
   $scope.questionsLeftCount = ->
     Object.keys($scope.exam.questions).length
 
+  $scope.isExamSolved = ->
+    $scope.questionsLeftCount() == 0
+
   $scope.percentageProgress = ->
     Math.floor(($scope.exam.masteredQuestions.length / ($scope.questionsLeftCount() + $scope.exam.masteredQuestions.length)) * 100)
 

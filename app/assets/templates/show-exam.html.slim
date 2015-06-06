@@ -1,46 +1,49 @@
 div ng-if="userExam"
-  h1 ng-bind="exam.name"
-  a ui-sref="exams.edit({ id: exam.id })" Edytuj
+  div ng-if="!isExamSolved()"
+    h1 ng-bind="exam.name"
+    a ui-sref="exams.edit({ id: exam.id })" Edytuj
 
-  | {{ newUserAnswers }}
+    | {{ newUserAnswers }}
 
-  h5 Repeat: {{ userExam.repeat }}
-  h5 Repeat wrong: {{ userExam.repeat_wrong }}
-  a ui-sref="exams.repeats({ id: exam.id })" Zmień ilość powtórzeń
-  h5 Pozostało pytań do opanowania: {{ questionsLeftCount() }}
-  h5 Opanowanych pytań: {{ exam.masteredQuestions.length }}
+    h5 Repeat: {{ userExam.repeat }}
+    h5 Repeat wrong: {{ userExam.repeat_wrong }}
+    a ui-sref="exams.repeats({ id: exam.id })" Zmień ilość powtórzeń
+    h5 Pozostało pytań do opanowania: {{ questionsLeftCount() }}
+    h5 Opanowanych pytań: {{ exam.masteredQuestions.length }}
 
-  h6 Procent: {{ percentageProgress() }}%
+    h6 Procent: {{ percentageProgress() }}%
 
-  button type="button" ng-click="startOver()" Zacznij od początku
+    button type="button" ng-click="startOver()" Zacznij od początku
 
-  div ng-if="questionsLeftCount() > 0"
-    h3 ng-bind="current.question.text"
+    div ng-if="questionsLeftCount() > 0"
+      h3 ng-bind="current.question.text"
 
-    span Powtórzeń tego pytania: {{ current.question.repeat }}
+      span Powtórzeń tego pytania: {{ current.question.repeat }}
 
-    ul
-      li(
-        ng-repeat="answer in current.question.answers"
-        ng-class="answerClass(answer)"
-      )
-        label
-          input(
-            type="checkbox"
-            checklist-model="current.answers"
-            checklist-value="answer.id"
-            ng-disabled="current.check"
-          )
-          | {{ answer.text }}
+      ul
+        li(
+          ng-repeat="answer in current.question.answers"
+          ng-class="answerClass(answer)"
+        )
+          label
+            input(
+              type="checkbox"
+              checklist-model="current.answers"
+              checklist-value="answer.id"
+              ng-disabled="current.check"
+            )
+            | {{ answer.text }}
 
-    button(
-      type="button"
-      ng-click="checkAnswers()"
-      ng-disabled="shouldDisableCheckAnswersButton()"
-    ) Sprawdź
+      button(
+        type="button"
+        ng-click="checkAnswers()"
+        ng-disabled="shouldDisableCheckAnswersButton()"
+      ) Sprawdź
 
-    button(
-      type="button"
-      ng-click="nextQuestion()"
-      ng-disabled="shouldDisableNextQuestionButton()"
-    ) Następne pytanie
+      button(
+        type="button"
+        ng-click="nextQuestion()"
+        ng-disabled="shouldDisableNextQuestionButton()"
+      ) Następne pytanie
+
+  div ng-if="isExamSolved()" ng-include="'/assets/_exam-solved.html'"
