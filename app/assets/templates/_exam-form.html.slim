@@ -14,7 +14,11 @@ div ng-controller="ExamFormCtrl"
         li ng-repeat="answer in question.answers"
           input type="checkbox" ng-model="answer.correct"
           input type="text" ng-model="answer.text" ng-change="onAnswerChange(question)"
-          button type="button" ng-click="deleteAnswer(question, answer)" &times;
+          button(
+            type="button"
+            ng-click="deleteAnswer(question, answer, $last)"
+            ng-if="!$last || answer.text != ''"
+          ) &times;
 
       div errors="errors[question.id]"
 
