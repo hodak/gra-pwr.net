@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get 'login', to: 'sessions#new'
 
   namespace :api do
-    resources :user_exams, only: [:index, :update] do
+    resources :user_exams, only: [:index, :update, :destroy] do
       member do
         put :sync_user_answers
       end

@@ -14,3 +14,6 @@ angular.module('infish').service 'UserExam', ($http, $q) ->
   syncUserAnswers: (userExam, userAnswers) ->
     $http.put "#{base}/#{userExam.id}/sync_user_answers",
       user_answers: userAnswers
+
+  startOver: (userExamID) ->
+    $http.delete "#{base}/#{userExamID}"

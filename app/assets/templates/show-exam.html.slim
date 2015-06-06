@@ -11,6 +11,8 @@ div ng-if="userExam"
 
   h6 Procent: {{ percentageProgress() }}%
 
+  button type="button" ng-click="startOver()" Zacznij od początku
+
   div ng-if="questionsLeftCount() > 0"
     h3 ng-bind="current.question.text"
 

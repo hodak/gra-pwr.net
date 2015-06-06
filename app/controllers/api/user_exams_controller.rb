@@ -32,6 +32,12 @@ module Api
       head :ok
     end
 
+    def destroy
+      UserExam.find(params[:id]).destroy
+
+      head :ok
+    end
+
     private
       def user_exams
         UserExam.for_user(current_user).map do |user_exam|

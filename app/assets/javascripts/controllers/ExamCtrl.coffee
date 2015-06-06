@@ -70,6 +70,14 @@ angular.module('infish').controller 'ExamCtrl', ($scope, $stateParams, $state, $
   $scope.percentageProgress = ->
     Math.floor(($scope.exam.masteredQuestions.length / ($scope.questionsLeftCount() + $scope.exam.masteredQuestions.length)) * 100)
 
+  $scope.startOver = ->
+    if confirm('Na pewno chcesz zacząć od zera?')
+      UserExam.startOver($scope.userExam.id)
+        .success ->
+          $state.go 'exams.repeats', id: $scope.exam.id
+        .error ->
+          # TODO: something went wrong
+
   buildUserAnswer = ->
     {
       id: UUIDjs.create().toString()
