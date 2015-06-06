@@ -6,6 +6,7 @@ div ng-if="userExam"
 
   h5 Repeat: {{ userExam.repeat }}
   h5 Repeat wrong: {{ userExam.repeat_wrong }}
+  a ui-sref="exams.repeats({ id: exam.id })" Zmień ilość powtórzeń
   h5 Pozostało pytań do opanowania: {{ questionsLeftCount() }}
   h5 Opanowanych pytań: {{ exam.masteredQuestions.length }}
 
