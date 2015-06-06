@@ -1,19 +1,17 @@
-h1 Choose repeats
+.crs-grid__row.crs-grid__row--centered.exam-repeats
+  .crs-grid__column.crs-grid__unit--sm-6
+    h2 Ustawienia "{{ userExam.exam.name }}"
 
-| {{ userExam }}
+    form.crs-utils--right ng-submit="submit()"
+      table.crs-table.exam-repeats__table
+        tr
+          td Powtórzenia pytania:
+          td
+            select ng-model="userExam.repeat" ng-options="i for i in oneToNine"
+        tr
+          td Dodatkowe powtórzenia po błędnej odpowiedzi
+          td
+            select ng-model="userExam.repeat_wrong" ng-options="i for i in oneToNine"
 
-br
-
-form ng-submit="submit()"
-  | Powtórzenia pytania
-  select ng-model="userExam.repeat" ng-options="i for i in oneToNine"
-
-  br
-
-  | Dodatkowe Powtórzenia pytania po błędnej odpowiedzi
-  select ng-model="userExam.repeat_wrong" ng-options="i for i in oneToNine"
-
-  br
-
-  button type="submit" Zapisz!
+      button.crs-button.crs-button--success type="submit" Zapisz!
 
