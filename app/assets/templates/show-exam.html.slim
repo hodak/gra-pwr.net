@@ -1,49 +1,75 @@
-div ng-if="userExam"
-  div ng-if="!isExamSolved()"
-    h1 ng-bind="exam.name"
-    a ui-sref="exams.edit({ id: exam.id })" Edytuj
+.solve-exam__wrap ng-if="userExam && !isExamSolved()"
+  .crs-grid__row.crs-grid__row--centered.solve-exam__top
+    .crs-grid__column.crs-grid__unit--sm-12
+      div.crs-utils--center
+        small
+          a.pull-right ui-sref="exams.edit({ id: exam.id })" Edytuj test
+        small.pull-left
+          | Powtórz: {{ userExam.repeat }} | Powtórz błędne: {{ userExam.repeat_wrong }} |
+          a<> ui-sref="exams.repeats({ id: exam.id })" Zmień powtórzenia
+          | |
+          a< href="" ng-click="startOver()" Zacznij od początku
 
-    | {{ newUserAnswers }}
+        br
+        h2 ng-bind="exam.name"
 
-    h5 Repeat: {{ userExam.repeat }}
-    h5 Repeat wrong: {{ userExam.repeat_wrong }}
-    a ui-sref="exams.repeats({ id: exam.id })" Zmień ilość powtórzeń
-    h5 Pozostało pytań do opanowania: {{ questionsLeftCount() }}
-    h5 Opanowanych pytań: {{ exam.masteredQuestions.length }}
+  .crs-grid__row.crs-grid__row--centered.solve-exam__top
+    .crs-grid__column.crs-grid__unit--sm-12
+      .solve-exam
+        .solve-exam__question-wrap
+          .solve-exam__top-info
+            .top-info__inline
+              | Powtórzenia tego pytania:
+              strong< ng-bind="current.question.repeat"
 
-    h6 Procent: {{ percentageProgress() }}%
+            .top-info__box.top-info__box--first
+              | Do opanowania
+              br
+              strong
+                | {{ questionsLeftCount() }}
+            .top-info__box.top-info__box--last
+              | Opanowanych
+              br
+              strong
+                | {{ exam.masteredQuestions.length }}
 
-    button type="button" ng-click="startOver()" Zacznij od początku
+          .solve-exam__content ng-class="questionClass(current.question)"
+            .solve-exam-content__head
+              p ng-bind="current.question.text"
 
-    div ng-if="questionsLeftCount() > 0"
-      h3 ng-bind="current.question.text"
+            .solve-exam-content__answers
+              ul
+                li(
+                  ng-repeat="answer in current.question.answers"
+                  ng-class="answerClass(answer)"
+                )
+                  span.solve-exam-answer__number ng-bind="$index + 1"
+                  label
+                    input(
+                      type="checkbox"
+                      checklist-model="current.answers"
+                      checklist-value="answer.id"
+                      ng-disabled="current.check"
+                    )
+                    | {{ answer.text }}
 
-      span Powtórzeń tego pytania: {{ current.question.repeat }}
+            .solve-exam__progress
+              span.solve-exam-progress__number
+                | {{ percentageProgress() }}%
+              span.solve-exam-progress__background ng-style="{ 'width': percentageProgress() + '%' }"
 
-      ul
-        li(
-          ng-repeat="answer in current.question.answers"
-          ng-class="answerClass(answer)"
-        )
-          label
-            input(
-              type="checkbox"
-              checklist-model="current.answers"
-              checklist-value="answer.id"
-              ng-disabled="current.check"
-            )
-            | {{ answer.text }}
+        .solve-exam__buttons ng-class="{ 'solve-exam__buttons--answered': !shouldDisableNextQuestionButton() }"
+          button.crs-button.solve-exam__button.solve-exam__button--check(
+            ng-class="!shouldDisableCheckAnswersButton() ? 'crs-button--success' : 'crs-button--hollow'"
+            type="button"
+            ng-click="checkAnswers()"
+            ng-disabled="shouldDisableCheckAnswersButton()"
+          ) Sprawdź
 
-      button(
-        type="button"
-        ng-click="checkAnswers()"
-        ng-disabled="shouldDisableCheckAnswersButton()"
-      ) Sprawdź
+          button.crs-button.crs-button--info.solve-exam__button.solve-exam__button--next(
+            type="button"
+            ng-click="nextQuestion()"
+            ng-disabled="shouldDisableNextQuestionButton()"
+          ) Następne
 
-      button(
-        type="button"
-        ng-click="nextQuestion()"
-        ng-disabled="shouldDisableNextQuestionButton()"
-      ) Następne pytanie
-
-  div ng-if="isExamSolved()" ng-include="'/assets/_exam-solved.html'"
+div ng-if="isExamSolved()" ng-include="'/assets/_exam-solved.html'"

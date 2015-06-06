@@ -43,8 +43,10 @@ angular.module('infish').controller 'ExamCtrl', ($scope, $stateParams, $state, $
     updateRepeatForQuestion()
     conditionallyMoveQuestionToMastered()
 
+  # HACK: it should also be disabled on $scope.current.check, but this
+  # way it doesn't break our animation
   $scope.shouldDisableCheckAnswersButton = ->
-    $scope.current.answers.length == 0 || $scope.current.check
+    $scope.current.answers.length == 0
 
   $scope.nextQuestion = ->
     $scope.current.check = false
@@ -56,13 +58,21 @@ angular.module('infish').controller 'ExamCtrl', ($scope, $stateParams, $state, $
 
   # TODO: probably should be a directive
   $scope.answerClass = (answer) ->
-    return unless $scope.current.check
+    classes = []
     answerInAnswers = wasAnswerInAnswers(answer)
+    classes.push 'selected-answer' if answerInAnswers
+    return classes unless $scope.current.check
 
-    if answer.correct && answerInAnswers
-      'correct-answer'
-    else if (!answer.correct && answerInAnswers) || (answer.correct && !answerInAnswers)
-      'incorrect-answer'
+    if answer.correct
+      classes.push 'correct-answer'
+    else if !answer.correct && answerInAnswers
+      classes.push 'incorrect-answer'
+
+    classes
+
+  $scope.questionClass = (question) ->
+    return unless $scope.current.check
+    if wasQuestionAnsweredCorrectly() then 'question-correct' else 'question-incorrect'
 
   $scope.questionsLeftCount = ->
     Object.keys($scope.exam.questions).length
