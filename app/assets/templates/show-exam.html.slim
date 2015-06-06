@@ -9,6 +9,8 @@ div ng-if="userExam"
   h5 Pozostało pytań do opanowania: {{ questionsLeftCount() }}
   h5 Opanowanych pytań: {{ exam.masteredQuestions.length }}
 
+  h6 Procent: {{ percentageProgress() }}%
+
   div ng-if="questionsLeftCount() > 0"
     h3 ng-bind="current.question.text"
 

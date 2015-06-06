@@ -67,6 +67,9 @@ angular.module('infish').controller 'ExamCtrl', ($scope, $stateParams, $state, $
   $scope.questionsLeftCount = ->
     Object.keys($scope.exam.questions).length
 
+  $scope.percentageProgress = ->
+    Math.floor(($scope.exam.masteredQuestions.length / ($scope.questionsLeftCount() + $scope.exam.masteredQuestions.length)) * 100)
+
   buildUserAnswer = ->
     {
       id: UUIDjs.create().toString()
