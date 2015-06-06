@@ -1,18 +1,19 @@
-h1 User Exams
+.crs-grid__row.crs-grid__row--centered
+  .crs-grid__column.crs-grid__unit--sm-8
+    h1.pull-left Twoje testy
+    a.pull-right.crs-button ui-sref="exams.create"
+      | Dodaj nowy
 
-a ui-sref="exams.create" New exam
+    table.crs-table.exams-index__table
+      tbody
+        tr ng-repeat="userExam in userExams"
+          td
+            a ui-sref="exams.show({ id: userExam.exam.id })" ng-bind="userExam.exam.name"
+          td
+            small
+              | {{ url('exams.show', { id: userExam.exam.id }) }}
+          td
+            a ui-sref="exams.edit({ id: userExam.exam.id })"
+              i.crs-icon-pencil
 
-table
-  tr
-    th ID
-    th Name
-    th Repeat
-    th Repeat Wrong
-  tr ng-repeat="userExam in userExams"
-    td
-      a ui-sref="exams.show({ id: userExam.exam.id })" ng-bind="userExam.exam.id"
-    td ng-bind="userExam.exam.name"
-    td ng-bind="userExam.repeat"
-    td ng-bind="userExam.repeat_wrong"
-
-  / TODO: current status of taking the exam
+/ TODO: current status of taking the exam

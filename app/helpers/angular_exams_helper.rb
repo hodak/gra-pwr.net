@@ -4,6 +4,6 @@ module AngularExamsHelper
   end
 
   def new_exam_url
-    "#{exams_url}#/exam/new"
+    "#{exams_url}#/new"
   end
 end

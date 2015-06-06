@@ -1,5 +1,6 @@
 enable_defaults! { ENV['RACK_ENV'] != 'production' }
 
+variable :FORCE_SSL, :boolean, default: false
 variable :HOST, :string, default: 'localhost:3000'
 variable :FACEBOOK_APP_ID, :string
 variable :FACEBOOK_APP_SECRET, :string

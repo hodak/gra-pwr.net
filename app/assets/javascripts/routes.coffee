@@ -9,25 +9,29 @@ angular.module('infish').config ($stateProvider, $urlRouterProvider, $locationPr
       resolve:
         userExams: (UserExam) ->
           UserExam.index().then (response) -> response.data
-      controller: (Redirector) ->
+      controller: ($scope, $state, Redirector, Rails) ->
         Redirector.redirectToSavedUrl()
+
+        $scope.url = (stateName, params) ->
+          "#{Rails.url}/exams/##{$state.href(stateName, params)}"
+
     .state 'exams.index',
       url: '/',
       templateUrl: '/assets/index.html'
       controller: 'IndexCtrl'
     .state 'exams.create',
-      url: '/exam/new'
+      url: '/new'
       templateUrl: '/assets/create-exam.html'
       controller: 'CreateExamCtrl'
     .state 'exams.edit',
-      url: '/exam/:id/edit'
+      url: '/:id/edit'
       templateUrl: '/assets/edit-exam.html'
       controller: 'EditExamCtrl'
       resolve:
         exam: ($stateParams, Exam) ->
           Exam.show($stateParams.id).then (response) -> response.data.exam
     .state 'exams.show',
-      url: '/exam/:id'
+      url: '/:id'
       templateUrl: '/assets/show-exam.html'
       controller: 'ExamCtrl'
       resolve:
@@ -38,7 +42,7 @@ angular.module('infish').config ($stateProvider, $urlRouterProvider, $locationPr
           UserExam.show($stateParams.id).then (response) -> response.data
 
     .state 'exams.repeats',
-      url: '/exam/:id/repeats'
+      url: '/:id/repeats'
       templateUrl: '/assets/exam-repeats.html'
       controller: 'UserExamChooseRepeats'
       resolve:

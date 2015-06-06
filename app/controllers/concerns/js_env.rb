@@ -9,6 +9,7 @@ module JsEnv
     data = {
       env: Rails.env,
       templates: templates,
+      url: url,
       host: ENVied.HOST
     }
 
@@ -29,6 +30,11 @@ module JsEnv
         .select { |file| file.end_with?('swf', 'html', 'json') }
         .map { |file| [file, ActionController::Base.helpers.asset_path(file)] }
       ]
+    end
+
+    def url
+      protocol = ENVied.FORCE_SSL ? 'https://' : 'http://'
+      "#{protocol}#{ENVied.HOST}"
     end
 end
 
