@@ -26,5 +26,5 @@ Rails.application.routes.draw do
 
   root 'home#index'
   # TODO: 404
-  get '*path', to: 'home#index'
+  # get '*path', to: 'home#index'
 end
