@@ -1,8 +1,13 @@
 .crs-topbar
   .crs-topbar__left
-    a.crs-topbar__logo href="#{root_url}"
-      | Infish
-      small alpha version
+    - if signed_in?
+      a.crs-topbar__logo href="#{exams_index_url}"
+        | Infish
+        small alpha version
+    - else
+      a.crs-topbar__logo href="#{root_url}"
+        | Infish
+        small alpha version
 
   .crs-topbar__right.text-right
     ul.crs-topbar__nav.crs-utils--right.crs-large--visible
