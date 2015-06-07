@@ -1,20 +1,25 @@
-div ng-controller="ExamSolvedCtrl"
-  h1 Gratuluję!
+.crs-grid__row.crs-grid__row--centered.exam-repeats ng-controller="ExamSolvedCtrl"
+  .crs-grid__column.crs-grid__unit--sm-6.crs-utils--center
+    h1 Gratuluję!
 
-  p Wygląda na to, że zasłużyłeś na chwilę relaksu.
+    p Wygląda na to, że zasłużyłeś na chwilę relaksu.
 
-  div ng-show="!isAbstinent"
-    img src="/assets/whisky.jpg" height="400"
-    p
-      | źródło:
-      a< href="http://stock.tookapic.com/photos/5717" tookapic
-      span<> |
-      button< type="button" ng-click="abstinentify()" Nie piję alkoholu
+    div ng-show="!isAbstinent"
+      img src="/assets/whisky.jpg" height="400"
+      p
+        | źródło:
+        a< href="http://stock.tookapic.com/photos/5717" tookapic
+        span<> |
+        a< href="" ng-click="abstinentify()" Nie piję alkoholu
 
-  div ng-show="isAbstinent"
-    img src="/assets/milk.jpg" height="400"
-    p
-      | źródło:
-      a< href="http://stock.tookapic.com/photos/7247" tookapic
+    div ng-show="isAbstinent"
+      img src="/assets/milk.jpg" height="400"
+      p
+        | źródło:
+        a< href="http://stock.tookapic.com/photos/7247" tookapic
 
-  button< type="button" ng-click="startOver()" Zacznij ponownie
+    button.crs-button< type="button" ng-click="startOver()" Jeszcze raz
+
+    br
+
+    a.crs-button.crs-button--info ui-sref="exams.index" Wróć do testów
