@@ -6,7 +6,7 @@ html ng-app="infish"
     = stylesheet_link_tag 'application', media: 'all'
     /* Beware, CSRF is disabled */
     /* = csrf_meta_tags */
-  body.crs-topbar--sticky
+  body.crs-topbar--sticky class="#{controller.controller_name} #{controller.action_name}"
     = render 'common/header'
 
     .content
