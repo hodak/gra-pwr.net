@@ -11,7 +11,9 @@
           a< href="" ng-click="startOver()" Zacznij od początku
 
         br
-        h2 ng-bind="exam.name"
+        h2
+          | {{ exam.name }}
+          span< keyboard-shortcuts-modal=""
 
   .crs-grid__row.crs-grid__row--centered.solve-exam__top
     .crs-grid__column.crs-grid__unit--sm-12
