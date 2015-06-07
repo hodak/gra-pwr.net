@@ -1,4 +1,4 @@
-angular.module('infish').directive 'keyboardShortcutsModal', ->
+angular.module('infish').directive 'keyboardShortcutsModal', ($timeout) ->
   templateUrl: 'keyboard-shortcuts-modal.html'
   controller: ($scope) ->
     modalOpen = false
@@ -6,5 +6,9 @@ angular.module('infish').directive 'keyboardShortcutsModal', ->
     $scope.ifShowModal = -> modalOpen
     $scope.showModal = -> modalOpen = true
     $scope.closeModal = -> modalOpen = false
+    $scope.toggleModal = -> modalOpen = !modalOpen
   link: (scope, element) ->
-    console.log 'element'
+    angular.element(window.document).on 'keypress', (e) ->
+      if e.which == 63 # questionmark
+        $timeout ->
+          scope.toggleModal()
