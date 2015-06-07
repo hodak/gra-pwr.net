@@ -81,6 +81,7 @@ GEM
     ngannotate-rails (0.9.9)
       execjs
       rails (>= 3.1)
+    non-stupid-digest-assets (1.0.4)
     oauth2 (1.0.0)
       faraday (>= 0.8, < 0.10)
       jwt (~> 1.0)
@@ -194,6 +195,7 @@ DEPENDENCIES
   factory_girl_rails (~> 4.4.1)
   jquery-rails (~> 3.1.2)
   ngannotate-rails (~> 0.9.9)
+  non-stupid-digest-assets (~> 1.0.4)
   omniauth-facebook (~> 2.0.1)
   pg (~> 0.17.1)
   pry (~> 0.10.1)

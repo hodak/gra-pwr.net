@@ -23,6 +23,8 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-angular-order-object-by', '~> 1.1.1'
 end
 
+gem 'non-stupid-digest-assets', '~> 1.0.4'
+
 group :development, :test do
   gem 'factory_girl_rails', '~> 4.4.1'
   gem 'rspec-rails', '~> 3.0.2'
