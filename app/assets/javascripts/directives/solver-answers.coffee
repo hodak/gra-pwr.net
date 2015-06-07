@@ -10,7 +10,7 @@ angular.module('infish').directive 'solverAnswers', ($timeout) ->
     56: 8
     57: 9
 
-  templateUrl: '/assets/solver/_answers.html'
+  templateUrl: 'solver/_answers.html'
   link: (scope, element) ->
     tryPressInput = (e) ->
       keyPressed = keyBindings[e.which]

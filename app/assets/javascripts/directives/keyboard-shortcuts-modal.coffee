@@ -1,5 +1,5 @@
 angular.module('infish').directive 'keyboardShortcutsModal', ->
-  templateUrl: '/assets/keyboard-shortcuts-modal.html'
+  templateUrl: 'keyboard-shortcuts-modal.html'
   controller: ($scope) ->
     modalOpen = false
 

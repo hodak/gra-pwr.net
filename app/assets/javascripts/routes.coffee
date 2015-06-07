@@ -17,22 +17,22 @@ angular.module('infish').config ($stateProvider, $urlRouterProvider, $locationPr
 
     .state 'exams.index',
       url: '/',
-      templateUrl: '/assets/index.html'
+      templateUrl: 'index.html'
       controller: 'IndexCtrl'
     .state 'exams.create',
       url: '/new'
-      templateUrl: '/assets/create-exam.html'
+      templateUrl: 'create-exam.html'
       controller: 'CreateExamCtrl'
     .state 'exams.edit',
       url: '/:id/edit'
-      templateUrl: '/assets/edit-exam.html'
+      templateUrl: 'edit-exam.html'
       controller: 'EditExamCtrl'
       resolve:
         exam: ($stateParams, Exam) ->
           Exam.show($stateParams.id).then (response) -> response.data.exam
     .state 'exams.show',
       url: '/:id'
-      templateUrl: '/assets/show-exam.html'
+      templateUrl: 'show-exam.html'
       controller: 'ExamCtrl'
       resolve:
         # by injecting userExams we ensure it gets resolved
@@ -43,7 +43,7 @@ angular.module('infish').config ($stateProvider, $urlRouterProvider, $locationPr
 
     .state 'exams.repeats',
       url: '/:id/repeats'
-      templateUrl: '/assets/exam-repeats.html'
+      templateUrl: 'exam-repeats.html'
       controller: 'UserExamChooseRepeats'
       resolve:
         userExam: ($stateParams, UserExam) ->
