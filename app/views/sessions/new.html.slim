@@ -1,6 +1,7 @@
 .crs-grid__row.crs-grid__row--centered.exam-repeats ng-controller="ExamSolvedCtrl"
   .crs-grid__column.crs-grid__unit--sm-6.crs-utils--center
-    h2 Jesteś niezalogowany
+    h2 ng-hide="error" ng-bind-template="Jesteś niezalogowany"
+    h2 ng-show="error" ng-bind-template="Błąd logowania"
     a.btn.btn--facebook href="/auth/facebook"
       i.fa.fa-facebook-square
       | Zaloguj się

@@ -12,7 +12,11 @@ class SessionsController < ApplicationController
 
   def destroy
     session.delete(:user_id)
-
     redirect_to root_url
+  end
+
+  def failure
+    flash[:omni_error] = "test"
+    redirect_to login_error_url
   end
 end
