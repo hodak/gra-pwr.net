@@ -1,0 +1,19 @@
+button.crs-button.crs-button--hollow type="button" ng-click="showModal()"
+  | + &nbsp;&nbsp; importuj
+
+.crs-modal.crs-modal--small ng-class="{ 'crs-modal--show': ifShowModal() }"
+  .crs-modal__content
+    .crs-grid__column
+      h3.crs-typo__h3 Importowanie plików z aplikacji "gra pwr"
+
+      div
+        | Możesz wybrać pliki .txt stworzone przez pierwowzór tej aplikacji i zaimportować znajdujące się tam pytania. Dozwolone jest zaznaczanie kilku plików jednocześnie.
+
+      .crs-input__group
+        input.crs-form__input type="file" id="file" name="file" multiple=""
+
+      br
+      .crs-utils--right
+        button.crs-button.crs-button--primary type="button" ng-click="sendFiles()" Wyślij
+        | &nbsp;
+        button.crs-button.crs-button--primary type="button" ng-click="closeModal()" Zamknij
