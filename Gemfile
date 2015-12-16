@@ -4,6 +4,7 @@ gem 'rails', '~> 4.1.6'
 gem 'envied', '~> 0.8.1'
 gem 'pg', '~> 0.17.1'
 gem 'virtus', '~> 1.0.5'
+gem 'dotenv-rails', '~> 2.0.2'
 
 gem 'omniauth-facebook', '~> 2.0.1'
 
