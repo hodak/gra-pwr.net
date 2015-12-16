@@ -2,9 +2,10 @@ source 'https://rubygems.org'
 
 gem 'rails', '~> 4.1.6'
 gem 'envied', '~> 0.8.1'
-gem 'pg', '~> 0.17.1'
+gem 'pg', '~> 0.18.0'
 gem 'virtus', '~> 1.0.5'
 gem 'dotenv-rails', '~> 2.0.2'
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 
 gem 'omniauth-facebook', '~> 2.0.1'
 
@@ -22,6 +23,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-uuid-js', '~> 0.7.5'
   gem 'rails-assets-checklist-model', '~> 0.2.4'
   gem 'rails-assets-angular-order-object-by', '~> 1.1.1'
+  gem 'rails-assets-encoding-japanese'
 end
 
 gem 'non-stupid-digest-assets', '~> 1.0.4'

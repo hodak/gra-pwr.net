@@ -118,7 +118,7 @@ GEM
     omniauth-oauth2 (1.3.0)
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
-    pg (0.17.1)
+    pg (0.18.4)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -142,6 +142,7 @@ GEM
     rails-assets-angularjs (1.3.2)
     rails-assets-checklist-model (0.2.4)
       rails-assets-angular (>= 1.0.8)
+    rails-assets-encoding-japanese (1.0.24)
     rails-assets-ui-router (0.2.11)
       rails-assets-angular (>= 1.0.8)
     rails-assets-uuid-js (0.7.5)
@@ -227,18 +228,20 @@ DEPENDENCIES
   ngannotate-rails (~> 0.9.9)
   non-stupid-digest-assets (~> 1.0.4)
   omniauth-facebook (~> 2.0.1)
-  pg (~> 0.17.1)
+  pg (~> 0.18.0)
   pry (~> 0.10.1)
   rails (~> 4.1.6)
   rails-assets-angular-order-object-by (~> 1.1.1)!
   rails-assets-angularjs (~> 1.3.2)!
   rails-assets-checklist-model (~> 0.2.4)!
+  rails-assets-encoding-japanese!
   rails-assets-ui-router (~> 0.2.9)!
   rails-assets-uuid-js (~> 0.7.5)!
   rspec-query-limit (~> 0.1.2)
   rspec-rails (~> 3.0.2)
   sass-rails (~> 4.0.3)
   slim-rails (~> 2.1.0)
+  tzinfo-data
   uglifier (>= 1.3.0)
   virtus (~> 1.0.5)
 
