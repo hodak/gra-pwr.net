@@ -15,8 +15,9 @@ angular.module('infish').directive 'fileUploadModal', ($timeout) ->
       question = question[5]
 
       $scope.addNewFilledQuestion(question, answers, states)
-
       $scope.$apply()
+      
+      modalOpen = false
 
     parseFile = (content) ->
       regex = /// ^ #begin of line

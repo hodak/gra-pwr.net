@@ -28,11 +28,15 @@ angular.module('infish').controller 'ExamFormCtrl', ($scope, $state, Exam) ->
     pushNewQuestion()
 
   $scope.addNewFilledQuestion = (question, answers, states) ->
-    q = pushNewQuestion() 
-    $scope.exam.questions[q.id].answers.push(newAnswer()) for num in [(answers.length - NUMBER_OF_ANSWERS)..1] 
-    $scope.exam.questions[q.id].text = question
-    $scope.exam.questions[q.id].answers[i].text = txt for txt, i in answers
-    $scope.exam.questions[q.id].answers[i].correct = corr for corr, i in states
+    q = newEmptyQuestion()
+    q.text = question
+    q.answers = for answer, i in answers
+      a = newAnswer()
+      a.text = answer
+      a.correct = states[i]
+      a
+      
+    $scope.exam.questions[q.id] = q
 
   removeLastEmptyAnswers = (question) ->
     return if question.answers.length <= NUMBER_OF_ANSWERS
@@ -47,13 +51,18 @@ angular.module('infish').controller 'ExamFormCtrl', ($scope, $state, Exam) ->
     text: ''
     correct: false
 
-  newQuestion = ->
+  newEmptyQuestion = ->
     date = new Date()
 
     id: UUIDjs.create().toString()
     text: ''
-    answers: (newAnswer() for num in [NUMBER_OF_ANSWERS..1])
+    answers: []
     created_at: date.toISOString().replace(date.getFullYear(), '4000') # hackish much? :)
+
+  newQuestion = ->
+    e = newEmptyQuestion()
+    e.answers = (newAnswer() for num in [NUMBER_OF_ANSWERS..1])
+    e
 
   pushNewQuestion = ->
     q = newQuestion()
