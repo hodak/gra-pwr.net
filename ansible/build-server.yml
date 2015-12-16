@@ -21,3 +21,4 @@
 
     # ### Site specific roles:
     - { role: prepare_site, tags: ['prepare_site'] }
+    - { role: copy-env, tags: ['copy-env'] }
