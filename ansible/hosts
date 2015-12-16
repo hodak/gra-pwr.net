@@ -1,0 +1,5 @@
+[vagrant]
+127.0.0.1 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2222 root_user=vagrant
+
+[prod]
+128.199.61.186 root_user=root

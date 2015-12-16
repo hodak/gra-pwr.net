@@ -1,0 +1,6 @@
+*rsa*
+.vagrant
+.DS_Store
+credentials/*
+
+group_vars/all/secret.yml
