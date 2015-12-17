@@ -35,6 +35,7 @@ angular.module('infish').controller 'ExamFormCtrl', ($scope, $state, Exam) ->
       a.text = answer
       a.correct = states[i]
       a
+    q.answers.push newAnswer()
       
     $scope.exam.questions[q.id] = q
 

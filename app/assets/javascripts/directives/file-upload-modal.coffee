@@ -16,8 +16,6 @@ angular.module('infish').directive 'fileUploadModal', ($timeout) ->
 
       $scope.addNewFilledQuestion(question, answers, states)
       $scope.$apply()
-      
-      modalOpen = false
 
     parseFile = (content) ->
       regex = /// ^ #begin of line
@@ -25,7 +23,7 @@ angular.module('infish').directive 'fileUploadModal', ($timeout) ->
         [\d.\s]*(.*):*[\r\n\t\s]+
          ///i      
 
-      regex2 = /[a-j]\.[\s]*(.*)[\r\n\t\s]+/g
+      regex2 = /[a-j]\.[\s]*(.*)[\r\n\t\s]*/g
 
       question = content.match regex
       answers = content.match regex2
@@ -52,4 +50,7 @@ angular.module('infish').directive 'fileUploadModal', ($timeout) ->
       r.readAsArrayBuffer(file);
 
     $scope.sendFiles = () ->
-       loadFile f for f in document.getElementById('file').files
+      fileHandle = document.getElementById('file')
+      loadFile f for f in fileHandle.files
+      fileHandle.value = ""
+      modalOpen = false
