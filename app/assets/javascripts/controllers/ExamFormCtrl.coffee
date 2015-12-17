@@ -1,4 +1,4 @@
-angular.module('infish').controller 'ExamFormCtrl', ($scope, $state, Exam) ->
+angular.module('infish').controller 'ExamFormCtrl', ($scope, $state, Exam, $rootScope) ->
   NUMBER_OF_ANSWERS = 2
 
   $scope.deleteQuestion = (question) ->
@@ -13,6 +13,7 @@ angular.module('infish').controller 'ExamFormCtrl', ($scope, $state, Exam) ->
   $scope.send = ->
     Exam.createOrUpdate($scope.exam)
       .success ->
+        $rootScope.$broadcast 'examAdded', $scope.exam
         $state.go 'exams.show', id: $scope.exam.id
       .error (e) ->
         $scope.errors = e.error
