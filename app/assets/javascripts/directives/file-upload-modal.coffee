@@ -39,16 +39,16 @@ angular.module('infish').directive 'fileUploadModal', ($timeout) ->
       r = new FileReader()
       r.onload = (e) ->
         codes = new Uint8Array(e.target.result)
-        encoding = Encoding.detect(codes)
+        encoding = jschardet.detect codes
+
+        if encoding.encoding == "ascii"
+          encoding = "CP1250"
+        else
+          encoding = encoding.encoding
+
+        decoder = new TextDecoder(encoding)
+        parseFile decoder.decode(codes)
        
-        unicodeString = Encoding.convert codes,
-          to: 'utf8',
-          from: encoding,
-          type: 'string'
-        
-
-        parseFile unicodeString
-
       r.readAsArrayBuffer(file);
 
     $scope.sendFiles = () ->

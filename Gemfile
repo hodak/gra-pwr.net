@@ -23,7 +23,8 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-uuid-js', '~> 0.7.5'
   gem 'rails-assets-checklist-model', '~> 0.2.4'
   gem 'rails-assets-angular-order-object-by', '~> 1.1.1'
-  gem 'rails-assets-encoding-japanese'
+  gem 'rails-assets-text-encoding'
+  gem 'rails-assets-jschardet'
 end
 
 gem 'non-stupid-digest-assets', '~> 1.0.4'
