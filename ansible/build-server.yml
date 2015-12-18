@@ -1,12 +1,12 @@
 ---
-- hosts: vagrant
+- hosts: all
   user: "{{ root_user }}"
   sudo: yes
   gather_facts: no
   roles:
     - { role: create-deploy-user, tags: ['create-deploy-user'] }
 
-- hosts: vagrant
+- hosts: all
   remote_user: "{{ deploy }}"
   gather_facts: no
   roles:
@@ -19,6 +19,6 @@
     # - { role: papertrail, tags: ['papertrail'] }
     - { role: nginx-passenger, tags: ['nginx-passenger'] }
 
-    # ### Site specific roles:
+    ### Site specific roles:
     - { role: prepare_site, tags: ['prepare_site'] }
     - { role: copy-env, tags: ['copy-env'] }
