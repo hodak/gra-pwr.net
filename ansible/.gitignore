@@ -4,3 +4,5 @@
 credentials/*
 
 group_vars/all/secret.yml
+roles/pg_restore/files/*.dump
+roles/pg_restore/files/*.sql
