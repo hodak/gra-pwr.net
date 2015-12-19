@@ -1,0 +1,13 @@
+- name: Copy latest.dump
+  copy:
+    src: latest.dump
+    dest: "~{{ deploy }}/latest.dump"
+    owner: "{{ deploy }}"
+
+- name: Run pg_restore
+  command: pg_restore --verbose --clean --no-acl --no-owner -h {{ database_host }} -U {{ database_user }} -d {{ database_name }} ~{{ deploy }}/latest.dump
+
+- name: Remove latest.dump
+  file:
+    path: "~{{ deploy }}/latest.dump"
+    state: absent

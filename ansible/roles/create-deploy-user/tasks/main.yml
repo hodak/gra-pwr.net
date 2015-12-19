@@ -1,0 +1,34 @@
+- name: create {{ deploy }} user
+  user: name={{ deploy }} comment="deploy user" generate_ssh_key=yes state=present shell=/bin/bash
+
+- name: authorize my SSH key to access {{ deploy }}
+  authorized_key: user={{ deploy }} key="{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+
+- name: copy ssh_config so that github doesn't do host verification
+  action: copy src=ssh_config dest=~{{ deploy }}/.ssh/config owner={{ deploy }} group={{ deploy }}
+
+- name: add {{ deploy }} to sudoers - DON'T REQUIRE PASSWORD TO ACCESS SUDO
+  lineinfile: "dest=/etc/sudoers state=present line='{{ deploy }} ALL=(ALL) NOPASSWD: ALL'"
+
+# User doesn't have password
+# - name: require password upon each invocation of sudo
+#   lineinfile: "dest=/etc/sudoers state=present line='Defaults timestamp_timeout=0'"
+
+- name: create www-data group
+  group: name=www-data state=present
+
+- name: create apps directory owned by {{ deploy }}:www-data with setgid bit
+  # note: 2755 => 2=setgid, 7=owner rwx, 5=group rx, 5=other rx
+  file: name=~{{ deploy }}/apps state=directory owner={{ deploy }} group=www-data mode=2755
+
+- name: ensure github.com is a known host
+  lineinfile:
+    dest: /root/.ssh/known_hosts
+    create: yes
+    state: present
+    line: "{{ lookup('pipe', 'ssh-keyscan -t rsa github.com') }}"
+    regexp: "^github\\.com"
+
+# I'm not exactly sure that's what I want?
+# - name: remove authorized_keys for root (specifically for DigitalOcean)
+#   file: name=/root/.ssh/authorized_keys state=absent

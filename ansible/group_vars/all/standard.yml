@@ -1,0 +1,10 @@
+---
+  # Unix user name to deploy as
+deploy: app
+
+# Ruby version to install
+ruby_version: 2.2.3
+rbenv_makeopts: ""
+
+# Used as nginx site name, rails directory, among other things
+full_app_name: infish

@@ -1,0 +1,7 @@
+---
+# Left blank intentionally, as it's dangerous operation
+- hosts:
+  remote_user: "{{ deploy }}"
+  gather_facts: no
+  roles:
+    - { role: pg_restore, tags: ['pg-restore'] }

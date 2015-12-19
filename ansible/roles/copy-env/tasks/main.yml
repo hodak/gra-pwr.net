@@ -1,0 +1,4 @@
+- name: Copy .env
+  sudo: yes
+  template: src=env.j2 dest=~{{deploy}}/apps/{{full_app_name}}/shared/.env owner={{deploy}} group=www-data mode=0640
+  notify: restart_nginx

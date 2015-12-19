@@ -1,0 +1,5 @@
+- hosts: vagrant
+  remote_user: "{{ deploy }}"
+  gather_facts: no
+  roles:
+    - { role: copy-env, tags: ['copy-env'] }

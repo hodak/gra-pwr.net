@@ -4,6 +4,7 @@ gem 'rails', '~> 4.1.6'
 gem 'envied', '~> 0.8.1'
 gem 'pg', '~> 0.17.1'
 gem 'virtus', '~> 1.0.5'
+gem 'dotenv-rails', '~> 2.0.2'
 
 gem 'omniauth-facebook', '~> 2.0.1'
 
@@ -24,6 +25,10 @@ source 'https://rails-assets.org' do
 end
 
 gem 'non-stupid-digest-assets', '~> 1.0.4'
+gem 'capistrano', '~> 3.4.0'
+gem 'capistrano-rails', '~> 1.1.5'
+gem 'capistrano-passenger', '~> 0.2.0'
+gem 'capistrano-rbenv', '~> 2.0.3'
 
 group :development, :test do
   gem 'factory_girl_rails', '~> 4.4.1'
@@ -31,4 +36,3 @@ group :development, :test do
   gem 'pry', '~> 0.10.1'
   gem 'rspec-query-limit', '~> 0.1.2'
 end
-
