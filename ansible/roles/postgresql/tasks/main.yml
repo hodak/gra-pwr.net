@@ -41,6 +41,12 @@
   template: src=pg_hba.conf.j2 dest=/etc/postgresql/9.4/main/pg_hba.conf
   sudo: yes
 
+- name: Copy .pgpass
+  template:
+    src: pgpass.j2
+    dest: "~{{ deploy }}/.pgpass"
+    mode: 0600
+
 - name: Restart PostgreSQL
   # NOTE: If conf files were updated here, need to FORCE a RESTART!
   service: name=postgresql state=started
