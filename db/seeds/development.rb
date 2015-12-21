@@ -1,25 +1,22 @@
-hodak   = User.create! email: 'hodak@hodak.pl'
-rafal   = User.create! email: 'rafal@rafal.pl'
-piotrek = User.create! email: 'piotrek@piotrek.pl'
+user = User.create! email: "example@example.com"
 
-web = Exam.create! name: 'Webówka'
-web.questions.create!(text: 'W modelu DOM elementy dokumentu zorganizowane są jako:').tap do |q|
-  q.answers.create! text: 'Graf'
-  q.answers.create! text: 'Drzewo', correct: true
-  q.answers.create! text: 'Lista'
-  q.answers.create! text: 'Zbiór'
+exam = Exam.create! name: "General Knowledge"
+exam.questions.create!(text: "For which of the following disciplines is Nobel Prize awarded?").tap do |q|
+  q.answers.create! text: "Physics and Chemistry", correct: true
+  q.answers.create! text: "Physiology or Medicine", correct: true
+  q.answers.create! text: "Literature, Peace and Economics", correct: true
 end
-web.questions.create!(text: 'Która czynność może być wykonywana przez skrypty po stronie klienta?').tap do |q|
-  q.answers.create! text: 'Ansynchroniczne żądania HTTP', correct: true
-  q.answers.create! text: 'Manipulacje DOM', correct: true
-  q.answers.create! text: 'Walidacja pól formularza', correct: true
-  q.answers.create! text: 'Manipulacja poufnymi danymi'
+exam.questions.create!(text: "First human heart transplant operation conducted by Dr. Christiaan Barnard on Louis Washkansky, was conducted in:").tap do |q|
+  q.answers.create! text: "1967", correct: true
+  q.answers.create! text: "1968"
+  q.answers.create! text: "1958"
+  q.answers.create! text: "1922"
 end
-web.questions.create!(text: '_____ to szeroko wspierana, otwarta technologia wymiany danych rozwijana przez _____.').tap do |q|
-  q.answers.create! text: 'SGML, The Mozilla Foundation'
-  q.answers.create! text: 'XHTML, W3C'
-  q.answers.create! text: 'XML, W3C', correct: true
-  q.answers.create! text: 'XML, The Mozilla Foundation'
+exam.questions.create!(text: "Guarantee to an exporter that the importer of his goods will pay immediately for the goods ordered by him, is known as:").tap do |q|
+  q.answers.create! text: "laissezfaire"
+  q.answers.create! text: "inflation"
+  q.answers.create! text: "Letter of Credit (L/C)", correct: true
+  q.answers.create! text: "None of the above"
 end
 
-hodak.user_exams.create! exam: web
+user.user_exams.create! exam: exam
