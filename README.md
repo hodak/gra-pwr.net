@@ -1,4 +1,8 @@
-# Infish
+# [gra-pwr.net](http://gra-pwr.net)
+
+## About
+
+![](doc/gra-pwr.gif?raw=true | width=200)
 
 ## Development
 
