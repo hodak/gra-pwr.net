@@ -16,7 +16,6 @@ class SessionsController < ApplicationController
   end
 
   def failure
-    flash[:omni_error] = "test"
     redirect_to login_error_url
   end
 end

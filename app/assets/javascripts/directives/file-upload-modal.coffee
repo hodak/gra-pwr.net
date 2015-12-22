@@ -18,15 +18,15 @@ angular.module('infish').directive 'fileUploadModal', ($timeout) ->
       $scope.$apply()
 
     parseFile = (content) ->
-      regex = /// ^ #begin of line
+      states_and_question_regex = /// ^ #begin of line
         X(\d)(\d)(\d)(\d)[\r\n]{1,2}
         [\d.\s]*(.*):*[\r\n\t\s]+
-         ///i      
+         ///i
 
-      regex2 = /[a-j]\.[\s]*(.*)[\r\n\t\s]*/g
+      answers_regex = /[a-j]\.[\s]*(.*)[\r\n\t\s]*/g
 
-      question = content.match regex
-      answers = content.match regex2
+      question = content.match states_and_question_regex
+      answers = content.match answers_regex
 
       addToForm question, answers if question && answers
 
@@ -34,20 +34,17 @@ angular.module('infish').directive 'fileUploadModal', ($timeout) ->
     loadFile = (file) ->
       return if file.type != "text/plain"
 
-      r = new FileReader()
-      r.onload = (e) ->
+      reader = new FileReader()
+      reader.onload = (e) ->
         codes = new Uint8Array(e.target.result)
-        encoding = jschardet.detect codes
-
-        if encoding.encoding == "ascii"
+        encoding = jschardet.detect(codes).encoding
+        if encoding == "ascii"
           encoding = "CP1250"
-        else
-          encoding = encoding.encoding
 
         decoder = new TextDecoder(encoding)
         parseFile decoder.decode(codes)
-       
-      r.readAsArrayBuffer(file);
+
+      reader.readAsArrayBuffer(file);
 
     $scope.sendFiles = () ->
       fileHandle = document.getElementById('file')
