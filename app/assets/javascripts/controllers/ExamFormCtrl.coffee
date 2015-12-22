@@ -1,4 +1,4 @@
-angular.module('infish').controller 'ExamFormCtrl', ($scope, $state, Exam) ->
+angular.module('infish').controller 'ExamFormCtrl', ($scope, $state, Exam, $rootScope) ->
   NUMBER_OF_ANSWERS = 2
 
   $scope.deleteQuestion = (question) ->
@@ -13,6 +13,7 @@ angular.module('infish').controller 'ExamFormCtrl', ($scope, $state, Exam) ->
   $scope.send = ->
     Exam.createOrUpdate($scope.exam)
       .success ->
+        $rootScope.$broadcast 'examAdded', $scope.exam
         $state.go 'exams.show', id: $scope.exam.id
       .error (e) ->
         $scope.errors = e.error
@@ -27,6 +28,18 @@ angular.module('infish').controller 'ExamFormCtrl', ($scope, $state, Exam) ->
   $scope.addNewQuestion = ->
     pushNewQuestion()
 
+  $scope.addNewFilledQuestion = (question_text, answers, states) ->
+    q = newEmptyQuestion()
+    q.text = question_text
+    q.answers = for answer, i in answers
+      a = newAnswer()
+      a.text = answer
+      a.correct = states[i]
+      a
+    q.answers.push newAnswer()
+      
+    $scope.exam.questions[q.id] = q
+
   removeLastEmptyAnswers = (question) ->
     return if question.answers.length <= NUMBER_OF_ANSWERS
     answers = question.answers
@@ -40,13 +53,18 @@ angular.module('infish').controller 'ExamFormCtrl', ($scope, $state, Exam) ->
     text: ''
     correct: false
 
-  newQuestion = ->
+  newEmptyQuestion = ->
     date = new Date()
 
     id: UUIDjs.create().toString()
     text: ''
-    answers: (newAnswer() for num in [NUMBER_OF_ANSWERS..1])
+    answers: []
     created_at: date.toISOString().replace(date.getFullYear(), '4000') # hackish much? :)
+
+  newQuestion = ->
+    e = newEmptyQuestion()
+    e.answers = (newAnswer() for num in [NUMBER_OF_ANSWERS..1])
+    e
 
   pushNewQuestion = ->
     q = newQuestion()
