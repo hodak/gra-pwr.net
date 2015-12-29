@@ -28,16 +28,16 @@ angular.module('infish').controller 'ExamFormCtrl', ($scope, $state, Exam, $root
   $scope.addNewQuestion = ->
     pushNewQuestion()
 
-  $scope.addNewFilledQuestion = (question_text, answers, states) ->
+  $scope.addNewFilledQuestion = (questionText, answers, states) ->
     q = newEmptyQuestion()
-    q.text = question_text
+    q.text = questionText
     q.answers = for answer, i in answers
       a = newAnswer()
       a.text = answer
       a.correct = states[i]
       a
     q.answers.push newAnswer()
-      
+
     $scope.exam.questions[q.id] = q
 
   removeLastEmptyAnswers = (question) ->
