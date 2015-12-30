@@ -9,26 +9,28 @@ angular.module('infish').directive 'fileUploadModal', ($timeout) ->
     $scope.toggleModal = -> modalOpen = !modalOpen
 
 
-    addToForm = (question, answers) ->
+    addToForm = (statesText, question, answers) ->
       states = []
-      states.push (question[i] == '1') for i in [1..4]
-      question = question[5]
+      states.push (statesText[i] == '1') for i in [0..statesText.length]
 
       $scope.addNewFilledQuestion(question, answers, states)
       $scope.$apply()
 
     parseFile = (content) ->
-      states_and_question_regex = /// ^ #begin of line
-        X(\d)(\d)(\d)(\d)[\r\n]{1,2}
-        [\d.\s]*(.*):*[\r\n\t\s]+
+      statesQuestionRegex = /// ^ #begin of line
+        X(\d+)[\r\n]{1,2}
+        [\d.\s\t]*(.*)[\r\n\t\s]+
          ///i
+      lineSplitRegex = /[^\r\n]+/g
 
-      answers_regex = /[a-j]\.[\s]*(.*)[\r\n\t\s]*/g
+      statesQuestionResult = content.match statesQuestionRegex
+      question = statesQuestionResult[2]
+      statesText = statesQuestionResult[1]
 
-      question = content.match states_and_question_regex
-      answers = content.match answers_regex
+      answers = content.match(lineSplitRegex).slice(2).map (item) ->
+        item.replace(/[(]{0,1}[a-j]{1}[\.);]/i, "").trim()
 
-      addToForm question, answers if question && answers
+      addToForm statesText, question, answers if statesQuestionResult && answers.length == statesText.length
 
 
     loadFile = (file) ->
