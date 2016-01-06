@@ -1,7 +1,15 @@
 server {
   listen 80;
+
+  {% if env_force_ssl %}
+  listen 443 default ssl;
+  ssl_certificate     /etc/letsencrypt/live/{{ server_name }}/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/{{ server_name }}/privkey.pem;
+  {% endif %}
+
   server_name {{ server_name }};
-  root /home/{{deploy}}/apps/{{full_app_name}}/current/public;
+
+  root /home/{{ deploy }}/apps/{{ full_app_name }}/current/public;
   passenger_enabled on;
 
   # warning: cargo cult server optimization ahead

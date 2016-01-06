@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   include JsEnv
   include AngularExamsHelper
 
+  force_ssl if: :force_ssl?
   helper_method :signed_in?, :current_user
 
   def signed_in?
@@ -13,5 +14,10 @@ class ApplicationController < ActionController::Base
 
   def current_user
     User.find_by(id: session[:user_id])
+  end
+
+  private
+  def force_ssl?
+    ENVied.FORCE_SSL || false
   end
 end

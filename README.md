@@ -52,3 +52,11 @@ If you have any questions don't hesitate to ask!
 
 - Use `uuid` instead of `integer` for IDs
 - Follow [Monterail's development guidelines](https://github.com/monterail/guidelines)
+
+### Deployment
+
+Most of you won't have to deploy the app, but if you do remember that:
+
+- We use Ansible for server provisioning (see `ansible/` directory)
+- We use Capistrano for deployment
+- When you `FORCE_SSL` you must generate SSL certificate on server with [Let's Encrypt](https://letsencrypt.org/howitworks/)
