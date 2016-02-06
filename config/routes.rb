@@ -18,6 +18,8 @@ Rails.application.routes.draw do
 
   resources :exams, only: [:index]
 
+  get '/fb-privacy-policy', to: 'home#fb_privacy_policy'
+
   get 'api' => proc { [404, {}, ['Invalid API endpoint']] }
   get 'api/*path' => proc { [404, {}, ['Invalid API endpoint']] }
 

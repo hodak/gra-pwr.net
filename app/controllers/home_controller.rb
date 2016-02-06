@@ -4,5 +4,6 @@ class HomeController < ApplicationController
       redirect_to exams_index_url
     end
   end
-end
 
+  def fb_privacy_policy; end
+end
