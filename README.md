@@ -23,8 +23,8 @@ $ cd infish
 # Create .env file in root directory with those required settings.
 # You can use my "test" Facebook APP or create your own in:
 # https://developers.facebook.com/apps/
-FACEBOOK_APP_ID=1252267081467224
-FACEBOOK_APP_SECRET=76714c3ab8e1c039299bc23a5c46b55d
+FACEBOOK_APP_ID=210494695962395
+FACEBOOK_APP_SECRET=30191632a2f83c5bb84b5fe7fbb8c17f
 
 $ bundle install
 $ bundle exec rake db:create db:migrate db:seed
