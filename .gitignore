@@ -12,3 +12,5 @@
 /tmp
 
 .env
+
+config/database.yml
