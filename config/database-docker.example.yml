@@ -1,0 +1,16 @@
+default: &default
+  adapter: postgresql
+  host: db
+  encoding: utf8
+  pool: 5
+  timeout: 5000
+  encoding: utf8
+  username: postgres
+
+development:
+  <<: *default
+  database: infish_development
+
+test:
+  <<: *default
+  database: infish_test
