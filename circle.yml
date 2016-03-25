@@ -1,3 +1,14 @@
 machine:
   ruby:
     version: 2.2.3
+  services:
+    - docker
+
+dependencies:
+  override:
+    - docker info
+    - docker build -t hodak/infish .
+
+test:
+  override:
+    - docker run hodak/infish bundle exec rspec
