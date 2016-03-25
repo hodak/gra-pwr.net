@@ -7,6 +7,10 @@ dependencies:
     - docker info
     - docker build -t hodak/infish .
 
+database:
+  override:
+    - /bin/true
+
 test:
   override:
     - docker run hodak/infish bundle exec rspec
