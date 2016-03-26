@@ -1,3 +1,4 @@
 cp config/database-docker.example.yml config/database.yml
 docker-compose build
+docker-compose up -d db
 docker-compose run web bundle exec rake db:create db:migrate
