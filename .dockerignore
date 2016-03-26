@@ -2,3 +2,6 @@
 .dockerignore
 .gitignore
 .env
+log/
+README.md
+docker-compose.yml
