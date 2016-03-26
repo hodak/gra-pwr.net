@@ -15,6 +15,11 @@ gem 'ngannotate-rails', '~> 0.9.9'
 gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails', '~> 3.1.2'
 
+group :production do
+  gem 'unicorn', '~> 5.0.1'
+  gem 'foreman', '~> 0.78.0'
+end
+
 source 'https://rails-assets.org' do
   gem 'rails-assets-angularjs', '~> 1.3.2'
   gem 'rails-assets-ui-router', '~> 0.2.9'
