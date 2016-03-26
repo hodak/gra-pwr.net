@@ -1,1 +1,0 @@
-cp config/database-docker.example.yml config/database.yml
