@@ -1,4 +1,4 @@
-enable_defaults! { ENV['RACK_ENV'] != 'production' }
+enable_defaults! { true }
 
 variable :FORCE_SSL, :boolean, default: false
 variable :HOST, :string, default: 'localhost:3000'
