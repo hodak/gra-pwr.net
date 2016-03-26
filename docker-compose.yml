@@ -12,3 +12,4 @@ web:
     - db
   volumes:
     - .:/myapp
+  env_file: .env
