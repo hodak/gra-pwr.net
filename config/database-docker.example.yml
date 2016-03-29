@@ -14,3 +14,7 @@ development:
 test:
   <<: *default
   database: infish_test
+
+production:
+  <<: *default
+  database: infish_production
