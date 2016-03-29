@@ -12,7 +12,7 @@ WORKDIR $APP_HOME
 
 COPY Gemfile ./Gemfile
 COPY Gemfile.lock ./Gemfile.lock
-RUN gem install bundler && bundle install --without development test
+RUN gem install bundler && bundle install --without development
 
 COPY . ./
 
