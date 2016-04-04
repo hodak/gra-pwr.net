@@ -12,4 +12,7 @@ web:
     - db
   volumes:
     - .:/myapp
+  environment:
+    RACK_ENV: development
+    RAILS_ENV: development
   env_file: .env
