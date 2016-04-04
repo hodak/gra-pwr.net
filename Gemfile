@@ -17,7 +17,6 @@ gem 'jquery-rails', '~> 3.1.2'
 
 group :production do
   gem 'unicorn', '~> 5.0.1'
-  gem 'foreman', '~> 0.78.0'
 end
 
 source 'https://rails-assets.org' do
