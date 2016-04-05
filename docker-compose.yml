@@ -1,11 +1,8 @@
 db:
   image: postgres
-  ports:
-    - "5432:5432"
-
 web:
   build: .
-  command: bundle exec rails server --port 3000 --binding 0.0.0.0
+  command: bundle exec rails server --binding 0.0.0.0
   ports:
     - "3000:3000"
   links:
