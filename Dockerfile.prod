@@ -12,8 +12,8 @@ WORKDIR $APP_HOME
 
 COPY Gemfile ./Gemfile
 COPY Gemfile.lock ./Gemfile.lock
-COPY config/database-docker.example.yml ./config/database.yml
 RUN gem install bundler && bundle install --without development
+COPY config/database-docker.example.yml ./config/database.yml
 
 COPY . ./
 
