@@ -1,0 +1,10 @@
+# TODO It's missing let's encrypt configuration, there's only cron job to
+# automatically renew cerfiticate
+
+- name: Add cron job to automatically renew certificate every first day of every month
+  become: yes
+  become_method: sudo
+  cron:
+    name: "renew let's encrypt"
+    day: 1
+    job: "cd ~app/letsencrypt; service nginx stop; ./letsencrypt-auto renew; service nginx start"

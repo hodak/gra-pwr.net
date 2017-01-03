@@ -18,6 +18,7 @@
     - { role: ruby, tags: ['ruby'] }
     # - { role: papertrail, tags: ['papertrail'] }
     - { role: nginx-passenger, tags: ['nginx-passenger'] }
+    - { role: lets-encrypt, tags: ['letsencrypt'] }
 
     ### Site specific roles:
     - { role: prepare_site, tags: ['prepare_site'] }
